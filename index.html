@@ -331,6 +331,13 @@ footer{background:var(--bk);padding:2.5rem 5vw;display:flex;align-items:center;j
   .adm-panel{max-width:100%}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPA_URL = 'https://wefqkrunfiryswnizpnr.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndlZnFrcnVuZmlyeXN3bml6cG5yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NTE2MTQsImV4cCI6MjA5NTAyNzYxNH0.z52Tsmo-H_8sFbXbneSW4Jt0GRkx8RVH6zntTSdYH5w';
+const TENANT_SLUG = 'bordados-express';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+</script>
 </head>
 <body>
 
@@ -632,8 +639,21 @@ const DEFAULT_CFG = {
   ],
 };
 
-function loadCfg(){ try{ const s=localStorage.getItem(CFG_KEY); return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_CFG)); }catch(e){ return JSON.parse(JSON.stringify(DEFAULT_CFG)); } }
-function saveCfg(c){ localStorage.setItem(CFG_KEY, JSON.stringify(c)); }
+async function loadCfg(){
+  try{
+    const {data,error} = await supa.from('tenants').select('config_json,logo_url').eq('slug',TENANT_SLUG).single();
+    if(error||!data) return JSON.parse(JSON.stringify(DEFAULT_CFG));
+    const c = (data.config_json && Object.keys(data.config_json).length) ? data.config_json : JSON.parse(JSON.stringify(DEFAULT_CFG));
+    if(data.logo_url) c.company = c.company||{}; if(data.logo_url) c.company.logo = data.logo_url;
+    return c;
+  }catch(e){ return JSON.parse(JSON.stringify(DEFAULT_CFG)); }
+}
+async function saveCfg(c){
+  try{
+    await supa.from('tenants').upsert({slug:TENANT_SLUG,config_json:c,logo_url:c.company?.logo||null,updated_at:new Date().toISOString()},{onConflict:'slug'});
+    localStorage.setItem(CFG_KEY,JSON.stringify(c)); // fallback cache
+  }catch(e){ localStorage.setItem(CFG_KEY,JSON.stringify(c)); }
+}
 
 let cfg = loadCfg();
 
@@ -965,29 +985,44 @@ function renderTab(tab){
   }
 }
 
-function uploadLogo(input){
+async function uploadLogo(input){
   const file = input.files[0];
   if(!file) return;
-  if(file.size > 1000000){ alert('El logo debe ser menor a 1MB'); return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    cfg.company.logo = e.target.result;
-    saveCfg(cfg);
+  if(file.size > 2000000){ alert('El logo debe ser menor a 2MB'); return; }
+  showToast('⏳ Subiendo logo...');
+  try{
+    const ext = file.name.split('.').pop();
+    const fileName = 'logo-bordados-express.' + ext;
+    const {error:upErr} = await supa.storage.from('logos').upload(fileName, file, {upsert:true, contentType:file.type});
+    if(upErr) throw upErr;
+    const {data:{publicUrl}} = supa.storage.from('logos').getPublicUrl(fileName);
+    cfg.company.logo = publicUrl;
+    await saveCfg(cfg);
     applyConfig();
     switchTab('empresa');
-    showToast('✅ Logo actualizado');
-  };
-  reader.readAsDataURL(file);
+    showToast('✅ Logo guardado en Supabase');
+  }catch(e){
+    // Fallback a base64 si falla Storage
+    const reader = new FileReader();
+    reader.onload = async ev => {
+      cfg.company.logo = ev.target.result;
+      await saveCfg(cfg);
+      applyConfig();
+      switchTab('empresa');
+      showToast('✅ Logo actualizado (local)');
+    };
+    reader.readAsDataURL(file);
+  }
 }
-function removeLogo(){
+async function removeLogo(){
   cfg.company.logo = null;
-  saveCfg(cfg);
+  await saveCfg(cfg);
   applyConfig();
   switchTab('empresa');
   showToast('Logo eliminado');
 }
 
-function saveConfig(){
+async function saveConfig(){
   const tab = currentTab;
   const co = cfg.company;
   const th = cfg.theme;
@@ -1044,13 +1079,13 @@ function saveConfig(){
     if(ac) cfg.tenant.lanaActive=ac.checked;
   }
 
-  saveCfg(cfg);
+  await saveCfg(cfg);
   applyConfig();
   applySections();
   showToast('✅ Cambios guardados');
 }
 
-function resetConfig(){
+async function resetConfig(){
   if(!confirm('¿Restablecer configuración de esta sección? Los cambios sin guardar se perderán.')) return;
   const defaultSection = JSON.parse(JSON.stringify(DEFAULT_CFG));
   const tab = currentTab;
@@ -1058,7 +1093,7 @@ function resetConfig(){
   else if(tab==='apariencia'){ cfg.theme = defaultSection.theme; cfg.sections={}; }
   else if(tab==='estadisticas'){ cfg.stats = defaultSection.stats; }
   else if(tab==='servicios'){ cfg.services = defaultSection.services; }
-  saveCfg(cfg);
+  await saveCfg(cfg);
   applyConfig();
   applySections();
   switchTab(tab);
@@ -1122,9 +1157,12 @@ window.addEventListener('scroll', ()=>{
   }
 });
 
-// Boot
-applyConfig();
-applySections();
+// Boot — carga config desde Supabase
+(async()=>{
+  cfg = await loadCfg();
+  applyConfig();
+  applySections();
+})();
 </script>
 </body>
 </html>
