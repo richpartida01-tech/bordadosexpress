@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title id="page-title">Bordados Express – Guadalajara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700;1,900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --w:#ffffff;--bk:#0a0a0a;--red:#d41515;--red2:#ff2c2c;
+  --g1:#f2f2f2;--g2:#d4d4d4;--g3:#8a8a8a;--g4:#3a3a3a;
+  --ff-h:'Barlow Condensed',sans-serif;--ff-b:'Barlow',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--w);color:var(--bk);font-family:var(--ff-b);font-size:16px;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.up{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .6s ease,transform .6s ease}
+.reveal-left.up{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .6s ease,transform .6s ease}
+.reveal-right.up{opacity:1;transform:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--w);border-bottom:3px solid var(--bk);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;transition:box-shadow .3s}
+nav.shadow{box-shadow:0 4px 24px rgba(0,0,0,.12)}
+.nav-logo{font-family:var(--ff-h);font-weight:900;font-size:1.6rem;letter-spacing:.02em;text-transform:uppercase;color:var(--bk);display:flex;align-items:center}
+.nav-logo .dot{color:var(--red)}
+.nav-logo img{max-height:38px;width:auto;display:block}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:var(--ff-h);font-weight:600;font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g3);transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:100%;height:2px;background:var(--red);transition:right .25s ease}
+.nav-links a:hover{color:var(--bk)}
+.nav-links a:hover::after{right:0}
+.nav-cta{background:var(--red);color:var(--w);font-family:var(--ff-h);font-weight:700;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;padding:.55rem 1.6rem;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:background .2s,transform .2s}
+.nav-cta:hover{background:var(--red2);transform:skewX(-2deg)}
+
+/* HERO */
+#hero{min-height:100vh;padding:7rem 5vw 0;position:relative;overflow:hidden;background:var(--w);display:flex;flex-direction:column;justify-content:flex-end}
+.hero-bg-num{position:absolute;right:-2vw;top:50%;transform:translateY(-55%);font-family:var(--ff-h);font-weight:900;font-size:clamp(18rem,38vw,48rem);line-height:1;color:var(--g1);user-select:none;pointer-events:none;letter-spacing:-.04em}
+.hero-content{position:relative;z-index:2;max-width:900px;padding-bottom:5rem}
+.hero-tag{display:inline-flex;align-items:center;gap:.6rem;background:var(--red);color:var(--w);font-family:var(--ff-h);font-weight:700;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;padding:.3rem .9rem;margin-bottom:1.8rem}
+.hero-h1{font-family:var(--ff-h);font-weight:900;font-size:clamp(4.5rem,12vw,11rem);line-height:.92;letter-spacing:-.01em;text-transform:uppercase;color:var(--bk);margin-bottom:1.2rem}
+.hero-h1 .stroke{-webkit-text-stroke:3px var(--bk);color:transparent}
+.hero-h1 .red{color:var(--red)}
+.hero-divider{width:80px;height:5px;background:var(--red);margin-bottom:1.5rem}
+.hero-sub{font-size:1.1rem;color:var(--g3);max-width:480px;line-height:1.7;margin-bottom:2.5rem}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.btn-red{background:var(--red);color:var(--w);font-family:var(--ff-h);font-weight:700;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 2.2rem;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background .2s,transform .2s,box-shadow .2s;display:inline-block}
+.btn-red:hover{background:var(--red2);transform:scale(1.03);box-shadow:4px 4px 0 var(--bk)}
+.btn-bk{background:var(--bk);color:var(--w);font-family:var(--ff-h);font-weight:700;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 2.2rem;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background .2s,transform .2s;display:inline-block}
+.btn-bk:hover{background:var(--g4);transform:scale(1.03)}
+.hero-stats{display:flex;gap:0;border-top:2px solid var(--bk);margin-top:3rem}
+.hero-stat{flex:1;padding:1.4rem 1.8rem;border-right:2px solid var(--bk)}
+.hero-stat:last-child{border-right:none}
+.hstat-num{font-family:var(--ff-h);font-weight:900;font-size:2.4rem;color:var(--bk);line-height:1}
+.hstat-num span{color:var(--red)}
+.hstat-label{font-size:.75rem;color:var(--g3);letter-spacing:.06em;margin-top:.2rem}
+
+/* TAPE */
+.tape{background:var(--bk);padding:.85rem 0;overflow:hidden;white-space:nowrap}
+.tape-track{display:inline-flex;animation:marquee 20s linear infinite}
+.tape-item{font-family:var(--ff-h);font-weight:700;font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--w);padding:0 2rem}
+.tape-dot{color:var(--red);padding:0 .5rem}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS BASE */
+.section-eyebrow{font-family:var(--ff-h);font-weight:700;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem;display:flex;align-items:center;gap:.7rem}
+.section-eyebrow::before{content:'';display:block;width:28px;height:3px;background:var(--red)}
+.section-h2{font-family:var(--ff-h);font-weight:900;font-size:clamp(2.8rem,6vw,5.5rem);text-transform:uppercase;line-height:.95;color:var(--bk);margin-bottom:.3rem}
+.section-h2 .ghost{-webkit-text-stroke:2px var(--bk);color:transparent}
+.section-sub{font-size:1rem;color:var(--g3);max-width:420px;margin-top:.8rem;margin-bottom:3.5rem}
+
+/* SERVICIOS */
+#servicios{padding:7rem 5vw;background:var(--g1);position:relative}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.svc-card{background:var(--w);border:2px solid var(--bk);padding:2.2rem 1.8rem;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:default}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.svc-card:hover{transform:translateY(-5px);box-shadow:6px 6px 0 var(--bk)}
+.svc-card:hover::after{transform:scaleX(1)}
+.svc-num{font-family:var(--ff-h);font-weight:900;font-size:5rem;line-height:1;color:var(--g1);position:absolute;top:-.4rem;right:.8rem;pointer-events:none;transition:color .3s}
+.svc-card:hover .svc-num{color:rgba(212,21,21,.08)}
+.svc-tag-line{width:32px;height:4px;background:var(--red);margin-bottom:1.4rem}
+.svc-name{font-family:var(--ff-h);font-weight:800;font-size:1.5rem;text-transform:uppercase;letter-spacing:.03em;color:var(--bk);margin-bottom:.5rem}
+.svc-desc{font-size:.88rem;color:var(--g3);line-height:1.7}
+.svc-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
+.pill{font-family:var(--ff-h);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .7rem;background:var(--g1);color:var(--g4);border:1px solid var(--g2)}
+
+/* NOSOTROS */
+#nosotros{background:var(--bk);padding:7rem 5vw;position:relative;overflow:hidden}
+#nosotros .section-h2{color:var(--w)}
+#nosotros .section-sub{color:var(--g3)}
+.nos-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:center}
+.nos-text p{font-size:1rem;color:var(--g2);line-height:1.8;margin-bottom:1.3rem}
+.nos-stats{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ns{padding:2.5rem 2rem;border-bottom:1px solid var(--g4);border-right:1px solid var(--g4);position:relative;overflow:hidden;transition:background .3s}
+.ns:nth-child(even){border-right:none}
+.ns:nth-last-child(-n+2){border-bottom:none}
+.ns:hover{background:rgba(212,21,21,.06)}
+.ns::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red);transform:scaleY(0);transition:transform .3s}
+.ns:hover::before{transform:scaleY(1)}
+.ns-num{font-family:var(--ff-h);font-weight:900;font-size:3.2rem;color:var(--w);line-height:1;margin-bottom:.3rem}
+.ns-num .red{color:var(--red)}
+.ns-label{font-size:.8rem;color:var(--g3);letter-spacing:.05em;line-height:1.4}
+
+/* CATÁLOGO HERO */
+#productos{padding:0;background:var(--w)}
+.cat-hero{background:var(--bk);padding:5rem 5vw 4rem;position:relative;overflow:hidden}
+.cat-hero::before{content:'CATÁLOGO';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-family:var(--ff-h);font-weight:900;font-size:clamp(8rem,18vw,20rem);color:rgba(255,255,255,.03);line-height:1;pointer-events:none;white-space:nowrap}
+.cat-hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.cat-hero-left .eyebrow{font-family:var(--ff-h);font-weight:700;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem}
+.cat-hero-left .eyebrow::before{content:'';display:block;width:28px;height:3px;background:var(--red)}
+.cat-hero-h{font-family:var(--ff-h);font-weight:900;font-size:clamp(2.8rem,5.5vw,5rem);text-transform:uppercase;line-height:.95;color:var(--w);margin-bottom:1rem}
+.cat-hero-h .red{color:var(--red)}
+.cat-hero-h .ghost{-webkit-text-stroke:2px rgba(255,255,255,.25);color:transparent}
+.cat-hero-sub{font-size:.95rem;color:#555;line-height:1.7;margin-bottom:2rem;max-width:420px}
+.cat-steps{display:flex;gap:0;margin-top:.5rem}
+.cat-step{flex:1;padding:1.2rem 1rem;border-left:2px solid rgba(255,255,255,.07);position:relative}
+.cat-step:first-child{border-left:none}
+.cat-step-n{font-family:var(--ff-h);font-weight:900;font-size:2rem;color:var(--red);line-height:1;margin-bottom:.3rem}
+.cat-step-title{font-family:var(--ff-h);font-size:.9rem;font-weight:700;text-transform:uppercase;color:var(--w);letter-spacing:.05em;margin-bottom:.2rem}
+.cat-step-desc{font-size:.75rem;color:#555;line-height:1.5}
+.btn-catalog-big{display:inline-flex;align-items:center;gap:.8rem;background:var(--red);color:var(--w);font-family:var(--ff-h);font-weight:800;font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.5rem;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);transition:background .2s,transform .2s,box-shadow .2s}
+.btn-catalog-big:hover{background:var(--red2);transform:scale(1.03);box-shadow:5px 5px 0 rgba(255,255,255,.15)}
+.cat-hero-right{display:flex;flex-direction:column;gap:1rem}
+.cat-mini-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.06);padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;transition:background .2s,border-color .2s;text-decoration:none;color:inherit}
+.cat-mini-card:hover{background:#222;border-color:var(--red)}
+.cat-mini-card-icon{width:40px;height:40px;background:#111;display:flex;align-items:center;justify-content:center;font-family:var(--ff-h);font-weight:900;font-size:1.1rem;color:var(--red);flex-shrink:0;border:1px solid rgba(255,255,255,.06)}
+.cat-mini-info{flex:1;min-width:0}
+.cat-mini-name{font-family:var(--ff-h);font-size:1rem;font-weight:800;text-transform:uppercase;color:var(--w);margin-bottom:.15rem}
+.cat-mini-sub{font-size:.72rem;color:#555}
+.cat-mini-price{font-family:var(--ff-h);font-weight:900;font-size:.9rem;color:var(--red);flex-shrink:0}
+.cat-mini-arrow{color:#333;font-size:1.1rem;flex-shrink:0;transition:color .2s,transform .2s}
+.cat-mini-card:hover .cat-mini-arrow{color:var(--red);transform:translateX(3px)}
+/* grid preview below hero */
+.cat-preview{padding:4rem 5vw 5rem}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.cat-card{display:block;background:var(--w);border:2px solid var(--bk);border-radius:3px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .25s,box-shadow .25s,border-color .2s;position:relative}
+.cat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.cat-card:hover{transform:translateY(-4px);box-shadow:5px 5px 0 var(--bk);border-color:var(--red)}
+.cat-card:hover::after{transform:scaleX(1)}
+.cat-card-top{background:var(--g1);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden}
+.cat-card-top .cat-overlay{position:absolute;inset:0;background:var(--red);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;font-family:var(--ff-h);font-weight:800;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--w)}
+.cat-card:hover .cat-overlay{opacity:1}
+.cat-badge{position:absolute;top:8px;left:8px;background:var(--red);color:var(--w);font-family:var(--ff-h);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .6rem}
+.cat-price{position:absolute;bottom:8px;right:8px;background:var(--bk);color:var(--w);font-family:var(--ff-h);font-size:.8rem;font-weight:800;padding:.3rem .75rem;letter-spacing:.05em}
+.cat-card-body{padding:1rem 1rem .9rem}
+.cat-dots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:.7rem}
+.cdot{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(0,0,0,.1);flex-shrink:0}
+.cat-name{font-family:var(--ff-h);font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:.02em;color:var(--bk);margin-bottom:.2rem}
+.cat-sub{font-size:.75rem;color:var(--g3);line-height:1.4;margin-bottom:.65rem}
+.cat-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.ctg{font-family:var(--ff-h);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .6rem;background:var(--g1);color:var(--g4);border:1px solid var(--g2)}
+/* Sticky catalog bar */
+.sticky-cat{position:fixed;bottom:0;left:0;right:0;z-index:150;background:var(--bk);border-top:3px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:.75rem 5vw;transform:translateY(100%);transition:transform .4s ease;gap:1rem}
+.sticky-cat.visible{transform:none}
+.sticky-cat-text{font-family:var(--ff-h);font-weight:700;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;color:var(--w)}
+.sticky-cat-text span{color:var(--red)}
+.sticky-cat-btn{background:var(--red);color:var(--w);font-family:var(--ff-h);font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.4rem;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);white-space:nowrap;flex-shrink:0;transition:background .2s}
+.sticky-cat-btn:hover{background:var(--red2)}
+.sticky-cat-close{background:none;border:none;color:#444;cursor:pointer;font-size:1.1rem;flex-shrink:0;transition:color .2s;padding:.2rem}
+.sticky-cat-close:hover{color:var(--w)}
+
+/* PROCESO */
+#proceso{background:var(--g1);padding:7rem 5vw}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3.5rem}
+.step{position:relative;padding:2rem 1.5rem;background:var(--w);border-top:5px solid var(--g2);transition:border-color .3s}
+.step:hover{border-color:var(--red)}
+.step-arrow{position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-size:1.5rem;color:var(--g2);z-index:1}
+.step:last-child .step-arrow{display:none}
+.step-n{font-family:var(--ff-h);font-weight:900;font-size:4.5rem;color:var(--g1);line-height:1;margin-bottom:.8rem}
+.step-title{font-family:var(--ff-h);font-weight:800;font-size:1.3rem;text-transform:uppercase;color:var(--bk);margin-bottom:.5rem}
+.step-desc{font-size:.85rem;color:var(--g3);line-height:1.7}
+
+/* CTA BAND */
+#cta{background:var(--red);padding:5.5rem 5vw;position:relative;overflow:hidden;text-align:center}
+#cta::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,rgba(255,255,255,.04) 0px,rgba(255,255,255,.04) 1px,transparent 1px,transparent 24px)}
+.cta-big{font-family:var(--ff-h);font-weight:900;font-size:clamp(2.8rem,6vw,6rem);text-transform:uppercase;line-height:.95;color:var(--w);margin-bottom:1rem;position:relative}
+.cta-big .ghost-w{-webkit-text-stroke:2px rgba(255,255,255,.5);color:transparent}
+.cta-sub{font-size:1rem;color:rgba(255,255,255,.75);margin-bottom:2.5rem;max-width:420px;margin-left:auto;margin-right:auto;position:relative}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-white{background:var(--w);color:var(--red);font-family:var(--ff-h);font-weight:800;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;padding:.9rem 2.4rem;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:transform .2s,box-shadow .2s;display:inline-block}
+.btn-white:hover{transform:scale(1.04);box-shadow:5px 5px 0 rgba(0,0,0,.25)}
+.btn-bk-outline{background:transparent;color:var(--w);border:2px solid rgba(255,255,255,.5);font-family:var(--ff-h);font-weight:700;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;padding:.9rem 2.2rem;transition:border-color .2s,background .2s;display:inline-block}
+.btn-bk-outline:hover{border-color:var(--w);background:rgba(255,255,255,.1)}
+
+/* CONTACTO */
+#contacto{padding:7rem 5vw;background:var(--w)}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-h2{font-family:var(--ff-h);font-weight:900;font-size:clamp(2.5rem,5vw,4.5rem);text-transform:uppercase;line-height:.95;color:var(--bk);margin-bottom:1.2rem}
+.contact-lead{font-size:.95rem;color:var(--g3);line-height:1.8;margin-bottom:2.5rem}
+.contact-list{display:flex;flex-direction:column;gap:1.4rem}
+.c-item{display:flex;align-items:flex-start;gap:1rem}
+.c-icon{width:42px;height:42px;flex-shrink:0;background:var(--red);display:flex;align-items:center;justify-content:center}
+.c-icon svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.c-text strong{display:block;font-family:var(--ff-h);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:.15rem}
+.c-text span{font-size:.88rem;color:var(--g3)}
+.contact-map{border:2px solid var(--bk);overflow:hidden;height:340px}
+.contact-map iframe{width:100%;height:100%;border:none;display:block;filter:grayscale(100%) contrast(1.1)}
+.contact-wa-big{margin-top:2rem}
+.btn-wa-big{display:flex;align-items:center;justify-content:center;gap:.9rem;background:#25d366;color:#fff;font-family:var(--ff-h);font-weight:800;font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2rem;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background .2s,transform .2s;text-decoration:none;width:100%}
+.btn-wa-big:hover{background:#1db954;transform:scale(1.02)}
+
+/* FOOTER */
+footer{background:var(--bk);padding:2.5rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.2rem;border-top:4px solid var(--red)}
+.f-logo{font-family:var(--ff-h);font-weight:900;font-size:1.5rem;text-transform:uppercase;color:var(--w);cursor:pointer;user-select:none}
+.f-logo .dot{color:var(--red)}
+.f-copy{font-size:.78rem;color:var(--g3)}
+.f-links{display:flex;gap:2rem}
+.f-links a{font-family:var(--ff-h);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g3);transition:color .2s}
+.f-links a:hover{color:var(--red)}
+
+/* WA FLOAT */
+.wa{position:fixed;bottom:1.8rem;right:1.8rem;background:#25d366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:300;box-shadow:0 4px 20px rgba(37,211,102,.45);transition:transform .25s;animation:pulse-wa 2.8s ease-in-out infinite}
+.wa:hover{transform:scale(1.12)}
+@keyframes pulse-wa{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4),0 0 0 0 rgba(37,211,102,.3)}55%{box-shadow:0 4px 20px rgba(37,211,102,.4),0 0 0 14px rgba(37,211,102,0)}}
+
+/* ═══════════════════════════════════════════
+   ADMIN PANEL
+═══════════════════════════════════════════ */
+.adm-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.6);display:none;backdrop-filter:blur(4px)}
+.adm-overlay.open{display:flex}
+.adm-panel{background:#111;width:100%;max-width:560px;height:100vh;margin-left:auto;display:flex;flex-direction:column;overflow:hidden;animation:slideIn .3s ease}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:none}}
+.adm-head{background:#1a1a1a;border-bottom:3px solid var(--red);padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.adm-head-title{font-family:var(--ff-h);font-weight:900;font-size:1.4rem;text-transform:uppercase;color:#fff;letter-spacing:.03em}
+.adm-head-title .dot{color:var(--red)}
+.adm-close{background:rgba(255,255,255,.08);border:none;color:#fff;width:34px;height:34px;border-radius:4px;cursor:pointer;font-size:1rem;transition:background .2s}
+.adm-close:hover{background:var(--red)}
+
+/* Tabs */
+.adm-tabs{display:flex;overflow-x:auto;background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;scrollbar-width:none}
+.adm-tabs::-webkit-scrollbar{display:none}
+.atab{padding:.7rem 1.1rem;border:none;background:none;color:#666;font-family:var(--ff-h);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.atab.on{color:var(--red);border-bottom-color:var(--red)}
+.atab:hover{color:#ccc}
+
+/* Body */
+.adm-body{flex:1;overflow-y:auto;padding:1.5rem}
+.adm-body::-webkit-scrollbar{width:4px}
+.adm-body::-webkit-scrollbar-thumb{background:#333}
+.adm-section{margin-bottom:1.8rem}
+.adm-section-title{font-family:var(--ff-h);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.adm-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+.adm-row.full{grid-template-columns:1fr}
+.af label{display:block;font-family:var(--ff-h);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555;margin-bottom:.3rem}
+.ai{width:100%;background:#1e1e1e;border:1.5px solid rgba(255,255,255,.1);color:#eee;font-family:var(--ff-b);font-size:.88rem;padding:.6rem .9rem;border-radius:3px;outline:none;transition:border-color .2s}
+.ai:focus{border-color:var(--red)}
+.ai-area{width:100%;background:#1e1e1e;border:1.5px solid rgba(255,255,255,.1);color:#eee;font-family:var(--ff-b);font-size:.88rem;padding:.6rem .9rem;border-radius:3px;outline:none;resize:vertical;min-height:80px;transition:border-color .2s}
+.ai-area:focus{border-color:var(--red)}
+.ai-color{height:36px;padding:2px;cursor:pointer}
+
+/* Toggle switch */
+.tog-row{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.tog-label{font-size:.85rem;color:#ccc}
+.tog-switch{position:relative;width:42px;height:22px;flex-shrink:0}
+.tog-switch input{opacity:0;width:0;height:0}
+.tog-track{position:absolute;inset:0;background:#333;border-radius:11px;cursor:pointer;transition:background .25s}
+.tog-track::after{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .25s}
+.tog-switch input:checked+.tog-track{background:var(--red)}
+.tog-switch input:checked+.tog-track::after{transform:translateX(20px)}
+
+/* Service mini-cards */
+.svc-mini{background:#1a1a1a;border:1px solid rgba(255,255,255,.06);border-radius:4px;padding:.9rem 1rem;margin-bottom:.6rem}
+.svc-mini-head{display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem}
+.svc-mini-icon{width:30px;height:30px;background:#222;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.svc-mini-name{font-family:var(--ff-h);font-size:1rem;font-weight:700;text-transform:uppercase;color:#fff;flex:1}
+
+/* Stats edit */
+.stat-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.stat-edit-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.06);border-radius:4px;padding:.9rem}
+.stat-edit-lbl{font-family:var(--ff-h);font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#555;margin-bottom:.5rem}
+
+/* Lana section */
+.lana-card{background:linear-gradient(135deg,#1a1a2e,#16213e);border:1.5px solid rgba(99,102,241,.3);border-radius:6px;padding:1.5rem;margin-bottom:1.2rem}
+.lana-badge{background:rgba(99,102,241,.2);color:#a5b4fc;font-family:var(--ff-h);font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.25rem .7rem;border-radius:2px;display:inline-block;margin-bottom:.8rem}
+.lana-title{font-family:var(--ff-h);font-size:1.6rem;font-weight:900;text-transform:uppercase;color:#fff;letter-spacing:.02em;margin-bottom:.4rem}
+.lana-desc{font-size:.82rem;color:#6b7280;line-height:1.6;margin-bottom:1.2rem}
+.btn-lana{display:flex;align-items:center;justify-content:center;gap:.7rem;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;font-family:var(--ff-h);font-weight:700;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;padding:.9rem 2rem;border:none;cursor:pointer;border-radius:3px;transition:transform .2s,box-shadow .2s;text-decoration:none;width:100%}
+.btn-lana:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(79,70,229,.4)}
+.lana-status{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:#6b7280;margin-top:.8rem}
+.lana-dot{width:8px;height:8px;border-radius:50%;background:#10b981;flex-shrink:0;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.lana-tenant{background:#0d0d0d;border:1px solid rgba(255,255,255,.06);border-radius:4px;padding:.8rem 1rem;margin-bottom:1rem}
+.lana-tenant-label{font-family:var(--ff-h);font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#444;margin-bottom:.3rem}
+.lana-tenant-val{font-family:'Courier New',monospace;font-size:.85rem;color:#6366f1;letter-spacing:.05em}
+
+/* Footer admin btn */
+.adm-footer-btn{background:rgba(255,255,255,.04);border:none;padding:.5rem 1rem;color:#333;font-family:var(--ff-h);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:color .3s,background .3s}
+.adm-footer-btn:hover{color:#555;background:rgba(255,255,255,.06)}
+
+/* Login */
+.adm-login{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:2rem;text-align:center}
+.adm-login-icon{font-size:2.5rem;margin-bottom:1rem}
+.adm-login-title{font-family:var(--ff-h);font-weight:900;font-size:1.8rem;text-transform:uppercase;color:#fff;margin-bottom:.3rem}
+.adm-login-sub{font-size:.85rem;color:#555;margin-bottom:1.8rem}
+.adm-login-input{width:100%;max-width:280px;background:#1e1e1e;border:2px solid rgba(255,255,255,.1);color:#fff;font-size:1rem;padding:.85rem 1rem;border-radius:4px;outline:none;text-align:center;letter-spacing:.1em;margin-bottom:1rem;transition:border-color .2s}
+.adm-login-input:focus{border-color:var(--red)}
+.adm-login-btn{background:var(--red);color:#fff;font-family:var(--ff-h);font-weight:700;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;padding:.85rem 2.5rem;border:none;cursor:pointer;border-radius:3px;transition:background .2s;width:100%;max-width:280px}
+.adm-login-btn:hover{background:var(--red2)}
+
+/* Save bar */
+.adm-save-bar{background:#1a1a1a;border-top:1px solid rgba(255,255,255,.06);padding:1rem 1.5rem;display:flex;gap:.8rem;flex-shrink:0}
+.btn-save{flex:1;background:var(--red);color:#fff;font-family:var(--ff-h);font-weight:700;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;padding:.7rem;border:none;cursor:pointer;border-radius:3px;transition:background .2s}
+.btn-save:hover{background:var(--red2)}
+.btn-reset{background:rgba(255,255,255,.05);color:#666;font-family:var(--ff-h);font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;padding:.7rem 1.2rem;border:1px solid rgba(255,255,255,.08);cursor:pointer;border-radius:3px;transition:background .2s}
+.btn-reset:hover{background:rgba(255,255,255,.09);color:#aaa}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nos-layout{grid-template-columns:1fr}
+  .cat-hero-inner{grid-template-columns:1fr}
+  .cat-hero-right{display:none}
+  #contacto .contact-inner{grid-template-columns:1fr;gap:3rem}
+  .process-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hero-h1 .stroke{-webkit-text-stroke-width:2px}
+  .process-grid{grid-template-columns:1fr}
+  .step-arrow{display:none}
+  .hero-stats{flex-direction:column}
+  .hero-stat{border-right:none;border-bottom:2px solid var(--bk)}
+  .hero-stat:last-child{border-bottom:none}
+  footer{flex-direction:column;text-align:center}
+  .fg-row{grid-template-columns:1fr}
+  .adm-panel{max-width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" id="d-nav-logo">Bordados<span class="dot">.</span>Express</div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="catalogo.html">Catálogo</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a id="d-nav-cta" href="catalogo.html" class="nav-cta">Ver catálogo</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-num" id="d-hero-years" aria-hidden="true">15</div>
+  <div class="hero-content">
+    <div class="hero-tag reveal" id="d-hero-tag">✦ Guadalajara, Jalisco — Desde 2009</div>
+    <h1 class="hero-h1 reveal">
+      Tu<br/><span class="red" id="d-hero-word1">marca</span><br/><span class="stroke" id="d-hero-word2">bordada</span>
+    </h1>
+    <div class="hero-divider reveal"></div>
+    <p class="hero-sub reveal" id="d-hero-sub">Bordado, DTF, serigrafía, sublimación y vinil textil. Más de 15 años vistiendo empresas, escuelas y equipos en toda la República.</p>
+    <div class="hero-actions reveal">
+      <a id="d-hero-cta1" href="#" class="btn-red">💬 Cotizar por WhatsApp</a>
+      <a href="catalogo.html" class="btn-bk">Ver catálogo →</a>
+    </div>
+  </div>
+  <div class="hero-stats reveal">
+    <div class="hero-stat"><div class="hstat-num" id="d-stat1-n">15<span>+</span></div><div class="hstat-label" id="d-stat1-l">Años de experiencia</div></div>
+    <div class="hero-stat"><div class="hstat-num" id="d-stat2-n">162<span>+</span></div><div class="hstat-label" id="d-stat2-l">Clientes satisfechos</div></div>
+    <div class="hero-stat"><div class="hstat-num" id="d-stat3-n">4.3<span>★</span></div><div class="hstat-label" id="d-stat3-l">Calificación promedio</div></div>
+    <div class="hero-stat"><div class="hstat-num" id="d-stat4-n">1<span> pza</span></div><div class="hstat-label" id="d-stat4-l">Pedido mínimo DTF</div></div>
+  </div>
+</section>
+
+<!-- TAPE -->
+<div class="tape">
+  <div class="tape-track" id="d-tape">
+    <span class="tape-item">Bordado</span><span class="tape-dot">◆</span>
+    <span class="tape-item">DTF Transfer</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Serigrafía</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Sublimación</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Vinil Textil</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Uniformes Corporativos</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Desde 1 Pieza</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Envíos a toda la República</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Bordado</span><span class="tape-dot">◆</span>
+    <span class="tape-item">DTF Transfer</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Serigrafía</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Sublimación</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Vinil Textil</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Uniformes Corporativos</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Desde 1 Pieza</span><span class="tape-dot">◆</span>
+    <span class="tape-item">Envíos a toda la República</span><span class="tape-dot">◆</span>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="reveal">
+    <div class="section-eyebrow">Técnicas disponibles</div>
+    <h2 class="section-h2">Cada técnica,<br/><span class="ghost">una historia</span></h2>
+    <p class="section-sub" id="d-svc-sub">Elegimos la técnica perfecta para tu proyecto. Manejamos menudeo y mayoreo.</p>
+  </div>
+  <div class="svc-grid" id="svc-grid"></div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="nos-layout">
+    <div class="nos-text">
+      <div class="section-eyebrow" style="color:var(--red);">Quiénes somos</div>
+      <h2 class="section-h2">15 años<br/><span class="ghost" style="-webkit-text-stroke-color:rgba(255,255,255,.2);">vistiendo</span><br/>Guadalajara</h2>
+      <p style="margin-top:1.2rem;" id="d-about-p1">Somos un taller tapatío especializado en bordado publicitario y personalización de prendas. Nuestras máquinas trabajan con tecnología de punta y nuestro equipo lleva años perfeccionando cada técnica.</p>
+      <p id="d-about-p2">Atendemos desde una pieza hasta pedidos de mayoreo para empresas, escuelas, restaurantes, equipos deportivos y más. Si estás fuera de Guadalajara, enviamos a toda la República.</p>
+      <div style="margin-top:2rem;"><a href="#contacto" class="btn-red">Solicitar cotización →</a></div>
+    </div>
+    <div class="nos-stats reveal">
+      <div class="ns"><div class="ns-num" id="d-ns1-n">15<span class="red">+</span></div><div class="ns-label" id="d-ns1-l">Años de experiencia en el mercado</div></div>
+      <div class="ns"><div class="ns-num" id="d-ns2-n">162<span class="red">+</span></div><div class="ns-label" id="d-ns2-l">Reseñas verificadas de clientes</div></div>
+      <div class="ns"><div class="ns-num" id="d-ns3-n">4.3<span class="red">★</span></div><div class="ns-label" id="d-ns3-l">Calificación promedio</div></div>
+      <div class="ns"><div class="ns-num">🇲🇽</div><div class="ns-label" id="d-ns4-l">Envíos a toda la República</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATÁLOGO HERO -->
+<section id="productos">
+  <div class="cat-hero">
+    <div class="cat-hero-inner reveal">
+      <div class="cat-hero-left">
+        <div class="eyebrow">Cotiza en minutos</div>
+        <h2 class="cat-hero-h">Elige tu<br/><span class="red">prenda,</span><br/><span class="ghost">cotiza ya</span></h2>
+        <p class="cat-hero-sub">Más de 40 modelos listos para bordado, DTF, serigrafía y más. Arma tu pedido desde el catálogo y recibe tu cotización en minutos.</p>
+        <a href="catalogo.html" class="btn-catalog-big">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Abrir catálogo interactivo
+        </a>
+        <div class="cat-steps">
+          <div class="cat-step"><div class="cat-step-n">01</div><div class="cat-step-title">Elige</div><div class="cat-step-desc">Modelo, color, talla</div></div>
+          <div class="cat-step"><div class="cat-step-n">02</div><div class="cat-step-title">Personaliza</div><div class="cat-step-desc">Agrega tu diseño</div></div>
+          <div class="cat-step"><div class="cat-step-n">03</div><div class="cat-step-title">Cotiza</div><div class="cat-step-desc">Precio en minutos</div></div>
+        </div>
+      </div>
+      <div class="cat-hero-right">
+        <a href="catalogo.html" class="cat-mini-card"><div class="cat-mini-card-icon">👔</div><div class="cat-mini-info"><div class="cat-mini-name">Camisas Oxford</div><div class="cat-mini-sub">Corporativa · +5 modelos · Bordado / Serigrafía / Vinil</div></div><div class="cat-mini-price">$452+</div><div class="cat-mini-arrow">→</div></a>
+        <a href="catalogo.html" class="cat-mini-card"><div class="cat-mini-card-icon">👕</div><div class="cat-mini-info"><div class="cat-mini-name">Polos &amp; Playeras</div><div class="cat-mini-sub">Sport · Piqué, Jersey, Interlock · Full color</div></div><div class="cat-mini-price">$320+</div><div class="cat-mini-arrow">→</div></a>
+        <a href="catalogo.html" class="cat-mini-card"><div class="cat-mini-card-icon">🧥</div><div class="cat-mini-info"><div class="cat-mini-name">Chamarras &amp; Chalecos</div><div class="cat-mini-sub">Fleece ecológico · Softshell · PET reciclado</div></div><div class="cat-mini-price">$620+</div><div class="cat-mini-arrow">→</div></a>
+        <a href="catalogo.html" class="cat-mini-card"><div class="cat-mini-card-icon">🦺</div><div class="cat-mini-info"><div class="cat-mini-name">Seguridad Industrial</div><div class="cat-mini-sub">Alta visibilidad Clase 3 · Retardante fuego</div></div><div class="cat-mini-price">$640+</div><div class="cat-mini-arrow">→</div></a>
+        <a href="catalogo.html" class="cat-mini-card"><div class="cat-mini-card-icon">👨‍🍳</div><div class="cat-mini-info"><div class="cat-mini-name">Gourmet &amp; Clínica</div><div class="cat-mini-sub">Filipinas, batas médicas, uniformes chef</div></div><div class="cat-mini-price">$480+</div><div class="cat-mini-arrow">→</div></a>
+      </div>
+    </div>
+  </div>
+  <div class="cat-preview">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:2rem">
+      <div><div class="section-eyebrow">Modelos destacados</div><h3 style="font-family:var(--ff-h);font-weight:900;font-size:clamp(2rem,4vw,3.2rem);text-transform:uppercase;line-height:.95;color:var(--bk)">Vista previa</h3></div>
+      <a href="catalogo.html" class="btn-bk" style="flex-shrink:0;align-self:flex-end;">Ver los +40 modelos →</a>
+    </div>
+  <div class="cat-grid reveal">
+    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">👔</div><div class="cat-badge">Corporativa</div><div class="cat-price">Desde $452</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#fff;border:1.5px solid #ccc"></span><span class="cdot" style="background:#6a1a2a"></span><span class="cdot" style="background:#aaa"></span><span class="cdot" style="background:#d4902a"></span><span class="cdot" style="background:#3a8aaa"></span></div><div class="cat-name">Heli / Astro</div><div class="cat-sub">Oxford · 60% Algodón 40% Poliéster · 4.20 oz</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span><span class="ctg">Vinil</span></div></div></a>
+    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">👔</div><div class="cat-badge">Corporativa</div><div class="cat-price">Desde $430</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#fff;border:1.5px solid #ccc"></span><span class="cdot" style="background:#d62020"></span><span class="cdot" style="background:#2255cc"></span><span class="cdot" style="background:#1a2a4a"></span><span class="cdot" style="background:#0a0a0a"></span></div><div class="cat-name">SuperPop</div><div class="cat-sub">Gabardina · 60% Algodón 40% Poliéster · 5.60 oz</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span><span class="ctg">Vinil</span></div></div></a>
+    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">👕</div><div class="cat-badge">Sport</div><div class="cat-price">Desde $380</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#fff;border:1.5px solid #ccc"></span><span class="cdot" style="background:#d62020"></span><span class="cdot" style="background:#8ab820"></span><span class="cdot" style="background:#1a6fcc"></span><span class="cdot" style="background:#0a0a0a"></span></div><div class="cat-name">Narvi Polo</div><div class="cat-sub">Piqué Premium · 50% Algodón 50% Poliéster · 8.00 oz</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span><span class="ctg">Vinil</span></div></div></a>
+    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">🧥</div><div class="cat-badge">Chamarra</div><div class="cat-price">Desde $620</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#888"></span><span class="cdot" style="background:#0a0a0a"></span><span class="cdot" style="background:#d62020"></span></div><div class="cat-name">Artic Fleece</div><div class="cat-sub">PET Reciclado · 100% Poliéster · 9.90 oz · Ecológica</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span><span class="ctg">Vinil</span></div></div></a>
+    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">👨‍🍳</div><div class="cat-badge">Gourmet</div><div class="cat-price">Desde $480</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#fff;border:1.5px solid #ccc"></span><span class="cdot" style="background:#0a0a0a"></span><span class="cdot" style="background:#e06a20"></span></div><div class="cat-name">Filipina Chef</div><div class="cat-sub">Gabardina · 60% Algodón 40% Poliéster · 5.60 oz</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span></div></div></a>
+    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">🦺</div><div class="cat-badge">Industrial</div><div class="cat-price">Desde $640</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#ffe000"></span><span class="cdot" style="background:#ff6600"></span><span class="cdot" style="background:#1a2a4a"></span></div><div class="cat-name">Alta Visibilidad</div><div class="cat-sub">Gabardina 100% Algodón · Clase 3 · Cinta reflectiva</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span></div></div></a>
+  </div>
+  </div>
+</section>
+
+<!-- STICKY CATALOG BAR -->
+<div class="sticky-cat" id="sticky-cat">
+  <div class="sticky-cat-text">📦 <span>+40 modelos</span> — cotiza directo desde el catálogo</div>
+  <a href="catalogo.html" class="sticky-cat-btn">Ver catálogo →</a>
+  <button class="sticky-cat-close" onclick="this.closest('.sticky-cat').style.display='none'">✕</button>
+</div>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="reveal">
+    <div class="section-eyebrow">Cómo trabajamos</div>
+    <h2 class="section-h2">Proceso<br/><span class="ghost" style="-webkit-text-stroke-color:rgba(0,0,0,.18);">sin complicaciones</span></h2>
+  </div>
+  <div class="process-grid reveal">
+    <div class="step"><div class="step-n">01</div><div class="step-title">Nos contactas</div><p class="step-desc">WhatsApp, formulario o visita directa. Cuéntanos qué necesitas.</p><span class="step-arrow">→</span></div>
+    <div class="step"><div class="step-n">02</div><div class="step-title">Cotización express</div><p class="step-desc">Recibes precio y tiempos rápidamente. Sin letra chica.</p><span class="step-arrow">→</span></div>
+    <div class="step"><div class="step-n">03</div><div class="step-title">Apruebas y producimos</div><p class="step-desc">Confirmas la muestra digital y ponemos manos a la obra.</p><span class="step-arrow">→</span></div>
+    <div class="step"><div class="step-n">04</div><div class="step-title">Entrega o envío</div><p class="step-desc">Recoge en tienda o enviamos a toda la República Mexicana.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-big reveal">Dale identidad<br/><span class="ghost-w">a tu marca</span></div>
+  <p class="cta-sub reveal">Menudeo y mayoreo. Atención personalizada. Cotización sin costo.</p>
+  <div class="cta-btns reveal">
+    <a id="d-cta-wa" href="#" class="btn-white">💬 Abrir WhatsApp</a>
+    <a href="catalogo.html" class="btn-bk-outline">Ver catálogo de prendas</a>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contact-inner">
+    <div class="reveal-left">
+      <div class="section-eyebrow">Dónde encontrarnos</div>
+      <h2 class="contact-h2">Hablemos</h2>
+      <p class="contact-lead" id="d-contact-lead">Visítanos en Guadalajara o escríbenos. Respondemos rápido y te asesoramos sin costo.</p>
+      <div class="contact-list">
+        <div class="c-item">
+          <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="c-text"><strong>Ubicación</strong><span id="d-address">Plaza Las Torres local 8H, Av. 8 de Julio #1896<br/>Col. 8 de Julio, Guadalajara, Jal. C.P. 44910</span></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div class="c-text"><strong>Teléfono / WhatsApp</strong><span id="d-phone">(33) 3810-5226</span></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="c-text"><strong>Correo</strong><span id="d-email">bordaexpressgdl@gmail.com</span></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="c-text"><strong>Horario</strong><span id="d-hours">Lunes – Viernes 9:00–18:00 · Sábado 9:00–14:00</span></div>
+        </div>
+      </div>
+      <div class="contact-wa-big">
+        <a id="d-cta-wa2" href="#" class="btn-wa-big">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escríbenos por WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="contact-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3732.1!2d-103.3377!3d20.6435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sBordados+Express+Guadalajara!5e0!3m2!1ses!2smx!4v1234567890"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo" id="footer-logo-btn" title="Administrar sitio">Bordados<span class="dot">.</span>Express</div>
+  <div class="f-copy" id="d-footer-copy">© 2025 Bordados Express · Guadalajara, Jalisco</div>
+  <div class="f-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a id="d-footer-wa" href="#">WhatsApp</a>
+    <button class="adm-footer-btn" onclick="openAdmin()">⚙ Admin</button>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<a id="d-wa-float" href="#" class="wa" title="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ═══ ADMIN PANEL ═══════════════════════════════════════ -->
+<div class="adm-overlay" id="adm-overlay" onclick="handleOverlayClick(event)">
+  <div class="adm-panel" id="adm-panel" onclick="event.stopPropagation()">
+
+    <!-- Login view -->
+    <div id="adm-login-view" class="adm-login">
+      <div class="adm-login-icon">🔐</div>
+      <div class="adm-login-title">Panel de Admin</div>
+      <div class="adm-login-sub">Ingresa tu contraseña para continuar</div>
+      <input type="password" class="adm-login-input" id="adm-pass-input" placeholder="Contraseña" onkeydown="if(event.key==='Enter')checkPass()"/>
+      <button class="adm-login-btn" onclick="checkPass()">Entrar →</button>
+      <div id="adm-err" style="color:#f87171;font-size:.8rem;margin-top:.8rem;display:none;">Contraseña incorrecta</div>
+    </div>
+
+    <!-- Main admin view -->
+    <div id="adm-main-view" style="display:none;flex-direction:column;height:100%">
+      <div class="adm-head">
+        <div class="adm-head-title">Admin<span class="dot">.</span>Panel</div>
+        <button class="adm-close" onclick="closeAdmin()">✕</button>
+      </div>
+      <div class="adm-tabs" id="adm-tabs">
+        <button class="atab on" onclick="switchTab('empresa')">🏢 Empresa</button>
+        <button class="atab" onclick="switchTab('apariencia')">🎨 Apariencia</button>
+        <button class="atab" onclick="switchTab('estadisticas')">📊 Estadísticas</button>
+        <button class="atab" onclick="switchTab('servicios')">⚙ Servicios</button>
+        <button class="atab" onclick="switchTab('lana')">🚀 LANA</button>
+      </div>
+      <div class="adm-body" id="adm-body"></div>
+      <div class="adm-save-bar">
+        <button class="btn-save" onclick="saveConfig()">💾 Guardar cambios</button>
+        <button class="btn-reset" onclick="resetConfig()">↩ Restablecer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  CONFIG SYSTEM
+// ═══════════════════════════════════════════════════════
+const CFG_KEY = "be_landing_cfg";
+const DEFAULT_CFG = {
+  tenant: { id:"bordados-express-gdl", plan:"Pro", lanaUrl:"https://lana.bordadosexpress.com", lanaActive:true },
+  pass: "bordados2024",
+  company: {
+    name:"Bordados Express", dot:true, logo:null,
+    city:"Guadalajara, Jalisco", country:"México",
+    tagEyebrow:"✦ Guadalajara, Jalisco — Desde 2009",
+    heroWord1:"marca", heroWord2:"bordada",
+    heroSub:"Bordado, DTF, serigrafía, sublimación y vinil textil. Más de 15 años vistiendo empresas, escuelas y equipos en toda la República.",
+    about1:"Somos un taller tapatío especializado en bordado publicitario y personalización de prendas. Nuestras máquinas trabajan con tecnología de punta y nuestro equipo lleva años perfeccionando cada técnica.",
+    about2:"Atendemos desde una pieza hasta pedidos de mayoreo para empresas, escuelas, restaurantes, equipos deportivos y más. Si estás fuera de Guadalajara, enviamos a toda la República.",
+    svcSub:"Elegimos la técnica perfecta para tu proyecto. Manejamos menudeo y mayoreo.",
+    contactLead:"Visítanos en Guadalajara o escríbenos. Respondemos rápido y te asesoramos sin costo.",
+    address:"Plaza Las Torres local 8H, Av. 8 de Julio #1896\nCol. 8 de Julio, Guadalajara, Jal. C.P. 44910",
+    phone:"33 3810-5226", email:"bordaexpressgdl@gmail.com",
+    hours:"Lunes – Viernes 9:00–18:00 · Sábado 9:00–14:00",
+    wa:"523338105226",
+    footerYear:"2025",
+  },
+  theme: { red:"#d41515", heroYears:"15" },
+  stats: [
+    { n:"15+", label:"Años de experiencia" },
+    { n:"162+", label:"Clientes satisfechos" },
+    { n:"4.3★", label:"Calificación promedio" },
+    { n:"1 pza", label:"Pedido mínimo DTF" },
+  ],
+  services: [
+    { icon:"🧵", name:"Bordado", desc:"Puntadas de precisión sobre cualquier prenda. Textura, volumen y durabilidad que ninguna otra técnica iguala.", pills:["Corporativo","Escolar","Deportivo"], active:true },
+    { icon:"🖨️", name:"DTF Transfer", desc:"Full color desde una sola pieza. Ideal para degradados, detalles finos y pedidos urgentes sin pérdida de calidad.", pills:["Desde 1 pieza","Full color"], active:true },
+    { icon:"🎨", name:"Serigrafía", desc:"Colores sólidos y vibrantes para grandes tirajes. Playeras, chalecos, artículos promo — resultados consistentes.", pills:["Mayoreo","Larga duración"], active:true },
+    { icon:"✨", name:"Sublimación", desc:"Imagen fotográfica integrada en la fibra. Sin grietas, sin descascarado. Perfecta para poliéster y artículos deportivos.", pills:["Deportivo","Foto calidad"], active:true },
+    { icon:"✂️", name:"Vinil Textil", desc:"Recorte y aplicación con acabados glitter, reflectivo, holográfico o mate. Resultados que llaman la atención.", pills:["Glitter","Reflectivo","Holográfico"], active:true },
+    { icon:"🏢", name:"Uniformes", desc:"Asesoría completa para uniformes corporativos, escolares y deportivos. Del diseño a la entrega.", pills:["Asesoría gratis","Mayoreo"], active:true },
+  ],
+};
+
+function loadCfg(){ try{ const s=localStorage.getItem(CFG_KEY); return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_CFG)); }catch(e){ return JSON.parse(JSON.stringify(DEFAULT_CFG)); } }
+function saveCfg(c){ localStorage.setItem(CFG_KEY, JSON.stringify(c)); }
+
+let cfg = loadCfg();
+
+// ═══════════════════════════════════════════════════════
+//  APPLY CONFIG TO DOM
+// ═══════════════════════════════════════════════════════
+function applyConfig(){
+  const c = cfg;
+  const co = c.company;
+  const th = c.theme;
+  const st = c.stats;
+
+  // Theme color
+  document.documentElement.style.setProperty('--red', th.red);
+
+  // Nav logo
+  const logoEl = document.getElementById('d-nav-logo');
+  if(logoEl){
+    if(co.logo){
+      logoEl.innerHTML = `<img src="${co.logo}" alt="${co.name}"/>`;
+    } else {
+      logoEl.innerHTML = co.name + (co.dot ? '<span class="dot">.</span>' : '');
+    }
+  }
+
+  // Hero
+  setText('d-hero-years', th.heroYears);
+  setText('d-hero-tag', co.tagEyebrow);
+  setText('d-hero-word1', co.heroWord1);
+  setText('d-hero-word2', co.heroWord2);
+  setText('d-hero-sub', co.heroSub);
+  setHref('d-hero-cta1', waLink(co.wa));
+
+  // Stats
+  if(st && st.length===4){
+    setText('d-stat1-n', st[0].n); setText('d-stat1-l', st[0].label);
+    setText('d-stat2-n', st[1].n); setText('d-stat2-l', st[1].label);
+    setText('d-stat3-n', st[2].n); setText('d-stat3-l', st[2].label);
+    setText('d-stat4-n', st[3].n); setText('d-stat4-l', st[3].label);
+  }
+
+  // Services
+  setText('d-svc-sub', co.svcSub);
+  renderServices();
+
+  // Nosotros
+  setText('d-about-p1', co.about1);
+  setText('d-about-p2', co.about2);
+  setText('d-ns1-l', st[0].label);
+  setText('d-ns2-l', st[1].label);
+  setText('d-ns3-l', st[2].label);
+
+  // Contact
+  setText('d-contact-lead', co.contactLead);
+  setHTML('d-address', co.address.replace(/\n/g,'<br>'));
+  setText('d-phone', co.phone);
+  setText('d-email', co.email);
+  setText('d-hours', co.hours);
+
+  // WA links
+  const waHref = waLink(co.wa);
+  setHref('d-wa-float', waHref);
+  setHref('d-cta-wa', waHref);
+  setHref('d-cta-wa2', waHref);
+  setHref('d-footer-wa', waHref);
+
+  // Footer
+  setText('d-footer-copy', `© ${co.footerYear} ${co.name} · ${co.city}`);
+
+  // Title
+  document.title = `${co.name} – ${co.city}`;
+}
+
+function waLink(n){ return `https://wa.me/${n}`; }
+function setText(id, val){ const el=document.getElementById(id); if(el) el.textContent=val; }
+function setHTML(id, val){ const el=document.getElementById(id); if(el) el.innerHTML=val; }
+function setHref(id, val){ const el=document.getElementById(id); if(el) el.href=val; }
+
+function renderServices(){
+  const grid = document.getElementById('svc-grid');
+  if(!grid) return;
+  const active = cfg.services.filter(s=>s.active);
+  grid.innerHTML = active.map((s,i) => `
+    <div class="svc-card">
+      <div class="svc-num" aria-hidden="true">0${i+1}</div>
+      <div class="svc-tag-line"></div>
+      <div class="svc-name">${s.name}</div>
+      <p class="svc-desc">${s.desc}</p>
+      <div class="svc-pills">${s.pills.map(p=>`<span class="pill">${p}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+//  ADMIN PANEL
+// ═══════════════════════════════════════════════════════
+let admAuth = false;
+let currentTab = 'empresa';
+
+function openAdmin(){
+  document.getElementById('adm-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  if(!admAuth){ showLogin(); } else { showMain(); }
+}
+function closeAdmin(){
+  document.getElementById('adm-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('adm-overlay')) closeAdmin();
+}
+function showLogin(){
+  document.getElementById('adm-login-view').style.display='flex';
+  document.getElementById('adm-main-view').style.display='none';
+  document.getElementById('adm-err').style.display='none';
+  document.getElementById('adm-pass-input').value='';
+  setTimeout(()=>document.getElementById('adm-pass-input').focus(),200);
+}
+function checkPass(){
+  const input = document.getElementById('adm-pass-input').value;
+  if(input === cfg.pass){
+    admAuth = true;
+    showMain();
+  } else {
+    document.getElementById('adm-err').style.display='block';
+    document.getElementById('adm-pass-input').value='';
+  }
+}
+function showMain(){
+  document.getElementById('adm-login-view').style.display='none';
+  const mv = document.getElementById('adm-main-view');
+  mv.style.display='flex';
+  mv.style.flexDirection='column';
+  mv.style.height='100%';
+  switchTab(currentTab);
+}
+
+function switchTab(tab){
+  currentTab = tab;
+  document.querySelectorAll('.atab').forEach((btn,i)=>{
+    const tabs=['empresa','apariencia','estadisticas','servicios','lana'];
+    btn.classList.toggle('on', tabs[i]===tab);
+  });
+  renderTab(tab);
+}
+
+function renderTab(tab){
+  const body = document.getElementById('adm-body');
+  const co = cfg.company;
+  const th = cfg.theme;
+  const st = cfg.stats;
+
+  if(tab==='empresa'){
+    body.innerHTML = `
+      <div class="adm-section">
+        <div class="adm-section-title">Logo &amp; Identidad</div>
+        <div style="background:#1a1a1a;border-radius:4px;padding:1rem;margin-bottom:1rem">
+          <div class="adm-section-title" style="margin-bottom:.7rem">Logo del negocio</div>
+          <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+            <div id="logo-preview" style="width:120px;height:52px;background:#0d0d0d;border:1.5px solid rgba(255,255,255,.1);border-radius:3px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">
+              ${co.logo ? '<img src="'+co.logo+'" style="max-width:100%;max-height:100%;object-fit:contain"/>' : '<span style="font-size:.72rem;color:#333;font-family:var(--ff-h);letter-spacing:.05em">Sin logo</span>'}
+            </div>
+            <div style="display:flex;flex-direction:column;gap:.5rem">
+              <label style="cursor:pointer">
+                <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" style="display:none" onchange="uploadLogo(this)"/>
+                <span style="display:inline-block;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#ccc;font-family:var(--ff-h);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer">📷 Subir logo</span>
+              </label>
+              ${co.logo ? '<button onclick="removeLogo()" style="background:rgba(214,21,21,.15);border:1px solid rgba(214,21,21,.3);color:#f87171;font-family:var(--ff-h);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer">🗑 Quitar logo</button>' : ''}
+              <div style="font-size:.72rem;color:#444">PNG, JPG, SVG · Se muestra en el nav · Recomendado: fondo transparente</div>
+            </div>
+          </div>
+        </div>
+        <div class="adm-row">
+          <div class="af"><label>Nombre del negocio (texto alt)</label><input class="ai" id="f-name" value="${esc(co.name)}"/></div>
+          <div class="af"><label>Ciudad</label><input class="ai" id="f-city" value="${esc(co.city)}"/></div>
+        </div>
+        <div class="adm-row full">
+          <div class="af"><label>Tag del hero (eyebrow)</label><input class="ai" id="f-tag" value="${esc(co.tagEyebrow)}"/></div>
+        </div>
+        <div class="adm-row">
+          <div class="af"><label>Palabra 1 del título (roja)</label><input class="ai" id="f-w1" value="${esc(co.heroWord1)}"/></div>
+          <div class="af"><label>Palabra 2 (outline)</label><input class="ai" id="f-w2" value="${esc(co.heroWord2)}"/></div>
+        </div>
+        <div class="adm-row full">
+          <div class="af"><label>Subtítulo del hero</label><textarea class="ai-area" id="f-sub">${esc(co.heroSub)}</textarea></div>
+        </div>
+      </div>
+      <div class="adm-section">
+        <div class="adm-section-title">Sección "Nosotros"</div>
+        <div class="adm-row full">
+          <div class="af"><label>Párrafo 1</label><textarea class="ai-area" id="f-ab1">${esc(co.about1)}</textarea></div>
+        </div>
+        <div class="adm-row full">
+          <div class="af"><label>Párrafo 2</label><textarea class="ai-area" id="f-ab2">${esc(co.about2)}</textarea></div>
+        </div>
+      </div>
+      <div class="adm-section">
+        <div class="adm-section-title">Datos de contacto</div>
+        <div class="adm-row">
+          <div class="af"><label>Teléfono / WhatsApp</label><input class="ai" id="f-phone" value="${esc(co.phone)}"/></div>
+          <div class="af"><label>WhatsApp (número, sin +)</label><input class="ai" id="f-wa" value="${esc(co.wa)}"/></div>
+        </div>
+        <div class="adm-row full">
+          <div class="af"><label>Correo</label><input class="ai" id="f-email" value="${esc(co.email)}"/></div>
+        </div>
+        <div class="adm-row full">
+          <div class="af"><label>Dirección</label><textarea class="ai-area" style="min-height:60px" id="f-addr">${esc(co.address)}</textarea></div>
+        </div>
+        <div class="adm-row full">
+          <div class="af"><label>Horario</label><input class="ai" id="f-hours" value="${esc(co.hours)}"/></div>
+        </div>
+        <div class="adm-row full">
+          <div class="af"><label>Año del footer (copyright)</label><input class="ai" id="f-year" value="${esc(co.footerYear)}"/></div>
+        </div>
+      </div>
+      <div class="adm-section">
+        <div class="adm-section-title">Seguridad</div>
+        <div class="adm-row full">
+          <div class="af"><label>Contraseña del panel admin</label><input class="ai" type="password" id="f-pass" placeholder="Nueva contraseña…"/></div>
+        </div>
+      </div>`;
+  }
+
+  else if(tab==='apariencia'){
+    body.innerHTML = `
+      <div class="adm-section">
+        <div class="adm-section-title">Colores</div>
+        <div class="adm-row">
+          <div class="af"><label>Color de acento (rojo)</label>
+            <div style="display:flex;gap:.6rem;align-items:center">
+              <input class="ai ai-color" type="color" id="f-red" value="${th.red}" style="width:60px"/>
+              <input class="ai" id="f-red-hex" value="${th.red}" style="flex:1" oninput="syncColorPicker()"/>
+            </div>
+          </div>
+          <div class="af"><label>Número grande del hero</label><input class="ai" id="f-hyears" value="${esc(th.heroYears)}"/></div>
+        </div>
+        <div style="margin-top:1.2rem;background:#1a1a1a;border-radius:4px;padding:.9rem;">
+          <div class="adm-section-title" style="margin-bottom:.6rem">Vista previa del color</div>
+          <div style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:center">
+            <div id="prev-block" style="width:48px;height:48px;border-radius:3px;background:${th.red}"></div>
+            <div style="font-family:var(--ff-h);font-size:1.5rem;font-weight:900;color:${th.red}" id="prev-text">BORDADOS EXPRESS</div>
+          </div>
+        </div>
+      </div>
+      <div class="adm-section">
+        <div class="adm-section-title">Secciones visibles</div>
+        <div class="tog-row"><span class="tog-label">Sección "Nosotros / Quiénes somos"</span><label class="tog-switch"><input type="checkbox" id="f-sh-nosotros" ${getSectionVisible('nosotros')?'checked':''}><div class="tog-track"></div></label></div>
+        <div class="tog-row"><span class="tog-label">Sección "Catálogo destacado"</span><label class="tog-switch"><input type="checkbox" id="f-sh-productos" ${getSectionVisible('productos')?'checked':''}><div class="tog-track"></div></label></div>
+        <div class="tog-row"><span class="tog-label">Sección "Proceso"</span><label class="tog-switch"><input type="checkbox" id="f-sh-proceso" ${getSectionVisible('proceso')?'checked':''}><div class="tog-track"></div></label></div>
+        <div class="tog-row"><span class="tog-label">Sección CTA (banda roja)</span><label class="tog-switch"><input type="checkbox" id="f-sh-cta" ${getSectionVisible('cta')?'checked':''}><div class="tog-track"></div></label></div>
+      </div>`;
+
+    // Live preview update
+    document.getElementById('f-red').addEventListener('input', function(){
+      document.getElementById('f-red-hex').value = this.value;
+      document.getElementById('prev-block').style.background = this.value;
+      document.getElementById('prev-text').style.color = this.value;
+      document.documentElement.style.setProperty('--red', this.value);
+    });
+  }
+
+  else if(tab==='estadisticas'){
+    body.innerHTML = `
+      <div class="adm-section">
+        <div class="adm-section-title">Estadísticas del hero (4 bloques)</div>
+        <div class="stat-edit-grid" id="stats-edit"></div>
+      </div>`;
+    const grid = document.getElementById('stats-edit');
+    grid.innerHTML = st.map((s,i)=>`
+      <div class="stat-edit-card">
+        <div class="stat-edit-lbl">Bloque ${i+1}</div>
+        <div class="af" style="margin-bottom:.5rem"><label>Número / Valor</label><input class="ai" id="f-st${i}-n" value="${esc(s.n)}"/></div>
+        <div class="af"><label>Etiqueta</label><input class="ai" id="f-st${i}-l" value="${esc(s.label)}"/></div>
+      </div>`).join('');
+  }
+
+  else if(tab==='servicios'){
+    body.innerHTML = `
+      <div class="adm-section">
+        <div class="adm-section-title">Subtítulo de la sección</div>
+        <div class="adm-row full"><div class="af"><input class="ai" id="f-svcsub" value="${esc(co.svcSub)}"/></div></div>
+      </div>
+      <div class="adm-section">
+        <div class="adm-section-title">Activar / desactivar servicios</div>
+        ${cfg.services.map((s,i)=>`
+        <div class="svc-mini">
+          <div class="svc-mini-head">
+            <div class="svc-mini-icon">${s.icon}</div>
+            <div class="svc-mini-name">${s.name}</div>
+            <label class="tog-switch" style="flex-shrink:0"><input type="checkbox" id="f-svc${i}-on" ${s.active?'checked':''}><div class="tog-track"></div></label>
+          </div>
+          <div class="af" style="margin-bottom:.4rem"><label>Descripción</label><textarea class="ai-area" style="min-height:60px" id="f-svc${i}-desc">${esc(s.desc)}</textarea></div>
+          <div class="af"><label>Etiquetas (separadas por comas)</label><input class="ai" id="f-svc${i}-pills" value="${s.pills.join(', ')}"/></div>
+        </div>`).join('')}
+      </div>`;
+  }
+
+  else if(tab==='lana'){
+    const tn = cfg.tenant;
+    body.innerHTML = `
+      <div class="adm-section">
+        <div class="adm-section-title">Tu instancia de LANA</div>
+        <div class="lana-card">
+          <div class="lana-badge">🚀 Sistema LANA</div>
+          <div class="lana-title">Acceder a LANA</div>
+          <div class="lana-desc">LANA es tu plataforma de gestión de producción, cotizaciones y órdenes de trabajo. Opera de forma independiente a esta landing page.</div>
+          <a href="${esc(tn.lanaUrl||'#')}" target="_blank" rel="noopener" class="btn-lana">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Abrir LANA en nueva pestaña
+          </a>
+          <div class="lana-status"><div class="lana-dot"></div><span>${tn.lanaActive ? 'Sistema activo' : 'Sistema inactivo'}</span></div>
+        </div>
+      </div>
+      <div class="adm-section">
+        <div class="adm-section-title">Configuración del tenant</div>
+        <div class="lana-tenant"><div class="lana-tenant-label">Tenant ID</div><div class="lana-tenant-val">${esc(tn.id||'—')}</div></div>
+        <div class="lana-tenant" style="margin-bottom:1rem"><div class="lana-tenant-label">Plan activo</div><div class="lana-tenant-val" style="color:#10b981">${esc(tn.plan||'—')}</div></div>
+        <div class="adm-row full">
+          <div class="af"><label>URL del sistema LANA</label><input class="ai" id="f-lana-url" value="${esc(tn.lanaUrl||'')}"/></div>
+        </div>
+        <div class="adm-row full">
+          <div class="af"><label>Tenant ID (identificador único)</label><input class="ai" id="f-tenant-id" value="${esc(tn.id||'')}"/></div>
+        </div>
+        <div class="tog-row"><span class="tog-label">Sistema LANA activo</span><label class="tog-switch"><input type="checkbox" id="f-lana-active" ${tn.lanaActive?'checked':''}><div class="tog-track"></div></label></div>
+        <div style="margin-top:1rem;background:#0d0d0d;border:1px solid rgba(255,255,255,.05);border-radius:4px;padding:1rem">
+          <div style="font-family:var(--ff-h);font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#444;margin-bottom:.5rem">ℹ️ Acerca de LANA</div>
+          <div style="font-size:.8rem;color:#4b5563;line-height:1.6">LANA es un sistema independiente de esta landing page. Cada cliente (tenant) puede tener su propia instancia de LANA con su propio URL. Desde aquí solo configuras el acceso directo — LANA se opera desde su propia plataforma.</div>
+        </div>
+      </div>`;
+  }
+}
+
+function uploadLogo(input){
+  const file = input.files[0];
+  if(!file) return;
+  if(file.size > 500000){ alert('El logo debe ser menor a 500KB'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    cfg.company.logo = e.target.result;
+    saveCfg(cfg);
+    applyConfig();
+    switchTab('empresa');
+    showToast('✅ Logo actualizado');
+  };
+  reader.readAsDataURL(file);
+}
+function removeLogo(){
+  cfg.company.logo = null;
+  saveCfg(cfg);
+  applyConfig();
+  switchTab('empresa');
+  showToast('Logo eliminado');
+}
+
+function saveConfig(){
+  const tab = currentTab;
+  const co = cfg.company;
+  const th = cfg.theme;
+  const st = cfg.stats;
+
+  if(tab==='empresa'){
+    co.name = v('f-name');
+    co.city = v('f-city');
+    co.tagEyebrow = v('f-tag');
+    co.heroWord1 = v('f-w1');
+    co.heroWord2 = v('f-w2');
+    co.heroSub = v('f-sub');
+    co.about1 = v('f-ab1');
+    co.about2 = v('f-ab2');
+    co.phone = v('f-phone');
+    co.wa = v('f-wa');
+    co.email = v('f-email');
+    co.address = v('f-addr');
+    co.hours = v('f-hours');
+    co.footerYear = v('f-year');
+    const np = v('f-pass');
+    if(np.trim()) cfg.pass = np.trim();
+  }
+  else if(tab==='apariencia'){
+    th.red = v('f-red');
+    th.heroYears = v('f-hyears');
+    cfg.sections = cfg.sections || {};
+    ['nosotros','productos','proceso','cta'].forEach(id=>{
+      const el=document.getElementById('f-sh-'+id);
+      if(el) cfg.sections[id] = el.checked;
+    });
+  }
+  else if(tab==='estadisticas'){
+    for(let i=0;i<4;i++){
+      const n=v('f-st'+i+'-n'); const l=v('f-st'+i+'-l');
+      if(st[i]){st[i].n=n; st[i].label=l;}
+    }
+  }
+  else if(tab==='servicios'){
+    co.svcSub = v('f-svcsub');
+    cfg.services.forEach((s,i)=>{
+      const on=document.getElementById('f-svc'+i+'-on');
+      const desc=document.getElementById('f-svc'+i+'-desc');
+      const pills=document.getElementById('f-svc'+i+'-pills');
+      if(on) s.active=on.checked;
+      if(desc) s.desc=desc.value;
+      if(pills) s.pills=pills.value.split(',').map(p=>p.trim()).filter(Boolean);
+    });
+  }
+  else if(tab==='lana'){
+    cfg.tenant.lanaUrl = v('f-lana-url');
+    cfg.tenant.id = v('f-tenant-id');
+    const ac=document.getElementById('f-lana-active');
+    if(ac) cfg.tenant.lanaActive=ac.checked;
+  }
+
+  saveCfg(cfg);
+  applyConfig();
+  applySections();
+  showToast('✅ Cambios guardados');
+}
+
+function resetConfig(){
+  if(!confirm('¿Restablecer configuración de esta sección? Los cambios sin guardar se perderán.')) return;
+  const defaultSection = JSON.parse(JSON.stringify(DEFAULT_CFG));
+  const tab = currentTab;
+  if(tab==='empresa'){ cfg.company = defaultSection.company; }
+  else if(tab==='apariencia'){ cfg.theme = defaultSection.theme; cfg.sections={}; }
+  else if(tab==='estadisticas'){ cfg.stats = defaultSection.stats; }
+  else if(tab==='servicios'){ cfg.services = defaultSection.services; }
+  saveCfg(cfg);
+  applyConfig();
+  applySections();
+  switchTab(tab);
+  showToast('↩ Sección restablecida');
+}
+
+function applySections(){
+  const secs = cfg.sections || {};
+  ['nosotros','productos','proceso','cta'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.style.display = secs[id]===false ? 'none' : '';
+  });
+}
+
+function getSectionVisible(id){
+  return (cfg.sections || {})[id] !== false;
+}
+
+// Helpers
+function v(id){ const el=document.getElementById(id); return el?el.value:''; }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+function syncColorPicker(){
+  const hex = document.getElementById('f-red-hex').value;
+  const cp = document.getElementById('f-red');
+  if(cp && /^#[0-9a-f]{6}$/i.test(hex)){ cp.value=hex; document.getElementById('prev-block').style.background=hex; document.getElementById('prev-text').style.color=hex; document.documentElement.style.setProperty('--red',hex); }
+}
+
+function showToast(msg){
+  let t = document.getElementById('adm-toast');
+  if(!t){ t=document.createElement('div'); t.id='adm-toast'; t.style.cssText='position:fixed;bottom:6rem;right:1.5rem;background:#111;color:#fff;border:1.5px solid var(--red);padding:.65rem 1.2rem;border-radius:4px;font-family:var(--ff-h);font-size:.85rem;font-weight:700;z-index:2000;transition:opacity .3s;pointer-events:none'; document.body.appendChild(t); }
+  t.textContent=msg; t.style.opacity='1';
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>{t.style.opacity='0'},2200);
+}
+
+// WA form
+function enviarWA(){
+  const n=document.querySelector('input[placeholder="Tu nombre"]').value.trim();
+  const e=document.querySelector('input[placeholder="Opcional"]').value.trim();
+  const t=document.querySelector('input[placeholder="+52 33 0000-0000"]').value.trim();
+  const s=document.querySelector('select').value;
+  const d=document.querySelector('textarea').value.trim();
+  if(!n||!t){alert('Por favor ingresa nombre y teléfono.');return;}
+  const msg=encodeURIComponent(`¡Hola! Solicito cotización:\n\n👤 ${n}${e?`\n🏢 ${e}`:''}${t?`\n📞 ${t}`:''}${s?`\n🔧 ${s}`:''}${d?`\n📝 ${d}`:''}`);
+  window.open(`https://wa.me/${cfg.company.wa}?text=${msg}`,'_blank');
+}
+
+// Scroll + init
+const io = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('up');io.unobserve(x.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>io.observe(el));
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('shadow',scrollY>60));
+
+// Sticky catalog bar
+let stickyCatShown = false;
+window.addEventListener('scroll', ()=>{
+  if(!stickyCatShown && scrollY > 600){
+    stickyCatShown = true;
+    const bar = document.getElementById('sticky-cat');
+    if(bar) bar.classList.add('visible');
+  }
+});
+
+// Boot
+applyConfig();
+applySections();
+</script>
+</body>
+</html>
