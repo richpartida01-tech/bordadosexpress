@@ -165,6 +165,15 @@ nav.shadow{box-shadow:0 4px 24px rgba(0,0,0,.12)}
 .sticky-cat-close{background:none;border:none;color:#444;cursor:pointer;font-size:1.1rem;flex-shrink:0;transition:color .2s;padding:.2rem}
 .sticky-cat-close:hover{color:var(--w)}
 
+/* SKELETON LOADERS */
+.cat-skeleton{background:var(--g1);border:2px solid var(--g2);border-radius:3px;overflow:hidden;aspect-ratio:.8;position:relative}
+.cat-skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.6) 50%,transparent 100%);animation:shimmer 1.4s infinite}
+@keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+
+/* CAT CARD IMAGE */
+.cat-card-img{width:100%;height:100%;object-fit:cover;display:block}
+.cat-ph{font-size:3.5rem}
+
 /* PROCESO */
 #proceso{background:var(--g1);padding:7rem 5vw}
 .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3.5rem}
@@ -449,17 +458,30 @@ footer{background:var(--bk);padding:2.5rem 5vw;display:flex;align-items:center;j
   </div>
   <div class="cat-preview">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:2rem">
-      <div><div class="section-eyebrow">Modelos destacados</div><h3 style="font-family:var(--ff-h);font-weight:900;font-size:clamp(2rem,4vw,3.2rem);text-transform:uppercase;line-height:.95;color:var(--bk)">Vista previa</h3></div>
-      <a href="catalogo.html" class="btn-bk" style="flex-shrink:0;align-self:flex-end;">Ver los +40 modelos →</a>
+      <div><div class="section-eyebrow">Modelos destacados</div><h3 style="font-family:var(--ff-h);font-weight:900;font-size:clamp(2rem,4vw,3.2rem);text-transform:uppercase;line-height:.95;color:var(--bk)">Nuestro <span style="color:var(--red)">catálogo</span></h3></div>
+      <a href="https://rpartidaislas-cloud.github.io/promodesk/catalogo.html?t=bordadosexpress" target="_blank" class="btn-bk" style="flex-shrink:0;align-self:flex-end;">Ver catálogo completo →</a>
     </div>
-  <div class="cat-grid reveal">
-    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">👔</div><div class="cat-badge">Corporativa</div><div class="cat-price">Desde $452</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#fff;border:1.5px solid #ccc"></span><span class="cdot" style="background:#6a1a2a"></span><span class="cdot" style="background:#aaa"></span><span class="cdot" style="background:#d4902a"></span><span class="cdot" style="background:#3a8aaa"></span></div><div class="cat-name">Heli / Astro</div><div class="cat-sub">Oxford · 60% Algodón 40% Poliéster · 4.20 oz</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span><span class="ctg">Vinil</span></div></div></a>
-    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">👔</div><div class="cat-badge">Corporativa</div><div class="cat-price">Desde $430</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#fff;border:1.5px solid #ccc"></span><span class="cdot" style="background:#d62020"></span><span class="cdot" style="background:#2255cc"></span><span class="cdot" style="background:#1a2a4a"></span><span class="cdot" style="background:#0a0a0a"></span></div><div class="cat-name">SuperPop</div><div class="cat-sub">Gabardina · 60% Algodón 40% Poliéster · 5.60 oz</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span><span class="ctg">Vinil</span></div></div></a>
-    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">👕</div><div class="cat-badge">Sport</div><div class="cat-price">Desde $380</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#fff;border:1.5px solid #ccc"></span><span class="cdot" style="background:#d62020"></span><span class="cdot" style="background:#8ab820"></span><span class="cdot" style="background:#1a6fcc"></span><span class="cdot" style="background:#0a0a0a"></span></div><div class="cat-name">Narvi Polo</div><div class="cat-sub">Piqué Premium · 50% Algodón 50% Poliéster · 8.00 oz</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span><span class="ctg">Vinil</span></div></div></a>
-    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">🧥</div><div class="cat-badge">Chamarra</div><div class="cat-price">Desde $620</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#888"></span><span class="cdot" style="background:#0a0a0a"></span><span class="cdot" style="background:#d62020"></span></div><div class="cat-name">Artic Fleece</div><div class="cat-sub">PET Reciclado · 100% Poliéster · 9.90 oz · Ecológica</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span><span class="ctg">Vinil</span></div></div></a>
-    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">👨‍🍳</div><div class="cat-badge">Gourmet</div><div class="cat-price">Desde $480</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#fff;border:1.5px solid #ccc"></span><span class="cdot" style="background:#0a0a0a"></span><span class="cdot" style="background:#e06a20"></span></div><div class="cat-name">Filipina Chef</div><div class="cat-sub">Gabardina · 60% Algodón 40% Poliéster · 5.60 oz</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span></div></div></a>
-    <a href="catalogo.html" class="cat-card"><div class="cat-card-top"><div class="cat-ph">🦺</div><div class="cat-badge">Industrial</div><div class="cat-price">Desde $640</div></div><div class="cat-card-body"><div class="cat-dots"><span class="cdot" style="background:#ffe000"></span><span class="cdot" style="background:#ff6600"></span><span class="cdot" style="background:#1a2a4a"></span></div><div class="cat-name">Alta Visibilidad</div><div class="cat-sub">Gabardina 100% Algodón · Clase 3 · Cinta reflectiva</div><div class="cat-tags"><span class="ctg">Bordado</span><span class="ctg">Serigrafía</span></div></div></a>
-  </div>
+    <div class="cat-grid reveal" id="lana-cat-grid">
+      <!-- skeleton loaders -->
+      <div class="cat-skeleton"></div>
+      <div class="cat-skeleton"></div>
+      <div class="cat-skeleton"></div>
+      <div class="cat-skeleton"></div>
+      <div class="cat-skeleton"></div>
+      <div class="cat-skeleton"></div>
+    </div>
+    <div id="lana-cat-empty" style="display:none;text-align:center;padding:3rem 1rem">
+      <div style="font-size:3rem;margin-bottom:1rem">📦</div>
+      <div style="font-family:var(--ff-h);font-weight:800;font-size:1.4rem;text-transform:uppercase;color:var(--bk);margin-bottom:.5rem">Catálogo en preparación</div>
+      <p style="color:var(--g3);font-size:.9rem;margin-bottom:1.5rem">Muy pronto aquí podrás ver todos nuestros modelos disponibles.</p>
+      <a href="https://rpartidaislas-cloud.github.io/promodesk/catalogo.html?t=bordadosexpress" target="_blank" class="btn-red">Ver catálogo →</a>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem" id="lana-cat-cta" style="display:none">
+      <a href="https://rpartidaislas-cloud.github.io/promodesk/catalogo.html?t=bordadosexpress" target="_blank" class="btn-catalog-big">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Ver todos los productos en LANA
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1106,6 +1128,111 @@ function enviarWA(){
   window.open(`https://wa.me/${cfg.company.wa}?text=${msg}`,'_blank');
 }
 
+// ═══════════════════════════════════════════════════════
+//  LANA CATALOG PREVIEW — carga productos reales en vivo
+// ═══════════════════════════════════════════════════════
+const LANA_URL  = 'https://lgjdzaqjrmmzyrenevfm.supabase.co';
+const LANA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxnamR6YXFqcm1tenlyZW5ldmZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MjE3MjIsImV4cCI6MjA5NDI5NzcyMn0.hMwcuvEqNN7DglKj5pCSn9vWgfze5BrvO5JbBecju-Y';
+const LANA_TENANT = '036bb85f-c7d3-4e7a-84e9-a631557ac955';
+const LANA_CAT_URL = 'https://rpartidaislas-cloud.github.io/promodesk/catalogo.html?t=bordadosexpress';
+
+const TECNICA_ICON = {
+  'bordado':'🧵','dtf':'🖨️','serigrafia':'🎨','serigrafía':'🎨',
+  'sublimacion':'✨','sublimación':'✨','vinil':'✂️','vinil textil':'✂️','default':'👕'
+};
+
+function tecnicaIcon(t){ if(!t) return TECNICA_ICON.default; return TECNICA_ICON[(t+'').toLowerCase()] || TECNICA_ICON.default; }
+
+function precioDesde(p){
+  if(!p) return null;
+  try{
+    if(typeof p === 'number') return p;
+    if(typeof p === 'string' && !isNaN(p)) return parseFloat(p);
+    if(Array.isArray(p) && p.length){ var min=Infinity; for(var i=0;i<p.length;i++){ var v=parseFloat(p[i].precio||p[i].price||p[i])||0; if(v>0&&v<min)min=v; } return min===Infinity?null:min; }
+    if(typeof p === 'object'){ var vals=Object.values(p).map(function(x){return parseFloat(x)||0;}).filter(function(x){return x>0;}); return vals.length?Math.min.apply(null,vals):null; }
+  }catch(e){}
+  return null;
+}
+
+function coloresVariantes(variantes){
+  if(!variantes || !Array.isArray(variantes)) return [];
+  var cols = [];
+  for(var i=0;i<variantes.length&&cols.length<6;i++){
+    var v = variantes[i];
+    var color = v.color_hex || v.hex || v.color || null;
+    if(color && cols.indexOf(color)===-1) cols.push(color);
+  }
+  return cols;
+}
+
+function renderLanaCard(p){
+  var catUrl = LANA_CAT_URL;
+  var icon = tecnicaIcon(p.tecnica || p.categoria);
+  var hasImg = p.imagen_url && p.imagen_url.trim();
+  var imgHtml = hasImg
+    ? '<img class="cat-card-img" src="'+p.imagen_url+'" alt="'+escHtml(p.nombre)+'" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.querySelector(\'.cat-ph-fallback\').style.display=\'flex\'">'
+    + '<div class="cat-ph-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:3.5rem">'+icon+'</div>'
+    : '<div class="cat-ph">'+icon+'</div>';
+
+  var precio = precioDesde(p.precios_grupo || p.precio_desde || p.precio || p.precios);
+  var precioHtml = precio ? '<div class="cat-price">Desde $'+Math.round(precio)+'</div>' : '';
+
+  var tecLabel = p.tecnica ? p.tecnica.charAt(0).toUpperCase()+p.tecnica.slice(1) : (p.categoria || '');
+  var badgeHtml = tecLabel ? '<div class="cat-badge">'+escHtml(tecLabel)+'</div>' : '';
+
+  var variantes = p.variantes || p.colores || [];
+  var colores = coloresVariantes(variantes);
+  var dotsHtml = colores.length ? '<div class="cat-dots">'+colores.map(function(c){
+    return '<span class="cdot" style="background:'+escHtml(c)+'"></span>';
+  }).join('')+'</div>' : '';
+
+  var tecnicas = p.tecnicas_disponibles || [];
+  var tagsHtml = tecnicas.length ? '<div class="cat-tags">'+tecnicas.slice(0,3).map(function(t){
+    return '<span class="ctg">'+escHtml(t)+'</span>';
+  }).join('')+'</div>' : '';
+
+  var desc = p.descripcion || p.material || '';
+  var descHtml = desc ? '<div class="cat-sub">'+escHtml(desc.substring(0,60))+(desc.length>60?'…':'')+'</div>' : '';
+
+  return '<a href="'+catUrl+'" target="_blank" class="cat-card">'
+    +'<div class="cat-card-top">'+imgHtml+badgeHtml+precioHtml+'<div class="cat-overlay">Ver en catálogo →</div></div>'
+    +'<div class="cat-card-body">'+dotsHtml+'<div class="cat-name">'+escHtml(p.nombre||'Producto')+'</div>'+descHtml+tagsHtml+'</div>'
+    +'</a>';
+}
+
+function escHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function loadLanaCatalog(){
+  var grid = document.getElementById('lana-cat-grid');
+  var empty = document.getElementById('lana-cat-empty');
+  var cta = document.getElementById('lana-cat-cta');
+  if(!grid) return;
+
+  fetch(LANA_URL+'/rest/v1/productos?tenant_id=eq.'+LANA_TENANT+'&activo=eq.true&order=nombre.asc&limit=6', {
+    headers:{
+      'apikey': LANA_KEY,
+      'Authorization': 'Bearer '+LANA_KEY,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(!Array.isArray(data) || data.length === 0){
+      grid.style.display = 'none';
+      if(empty) empty.style.display = 'block';
+      return;
+    }
+    grid.innerHTML = data.map(renderLanaCard).join('');
+    if(cta) cta.style.display = 'block';
+    // re-observe nuevas cards para reveal
+    grid.querySelectorAll('.cat-card').forEach(function(el){ io.observe(el); });
+  })
+  .catch(function(){
+    grid.style.display = 'none';
+    if(empty) empty.style.display = 'block';
+  });
+}
+
 // Scroll + init
 const io = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('up');io.unobserve(x.target);}}),{threshold:.1});
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>io.observe(el));
@@ -1125,6 +1252,7 @@ window.addEventListener('scroll', ()=>{
 // Boot
 applyConfig();
 applySections();
+loadLanaCatalog();
 </script>
 </body>
 </html>
