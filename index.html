@@ -695,9 +695,34 @@ const DEFAULT_CFG = {
 };
 
 function loadCfg(){ try{ const s=localStorage.getItem(CFG_KEY); return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_CFG)); }catch(e){ return JSON.parse(JSON.stringify(DEFAULT_CFG)); } }
-function saveCfg(c){ localStorage.setItem(CFG_KEY, JSON.stringify(c)); }
+function saveCfg(c){
+  try{
+    localStorage.setItem(CFG_KEY, JSON.stringify(c));
+  } catch(e){
+    // localStorage lleno — intentar sin el logo (guardarlo separado)
+    try{
+      const logo = c.company.logo;
+      c.company.logo = '__LOGO__';
+      localStorage.setItem(CFG_KEY, JSON.stringify(c));
+      c.company.logo = logo;
+      if(logo) localStorage.setItem(CFG_KEY+'_logo', logo);
+    } catch(e2){
+      alert('Error al guardar: almacenamiento lleno. Usa una imagen más pequeña (máx 200KB).');
+    }
+  }
+}
+function loadLogoSeparado(){
+  try{
+    const s = localStorage.getItem(CFG_KEY);
+    if(s && s.includes('"__LOGO__"')){
+      const logo = localStorage.getItem(CFG_KEY+'_logo');
+      if(logo && cfg.company.logo === '__LOGO__') cfg.company.logo = logo;
+    }
+  } catch(e){}
+}
 
 let cfg = loadCfg();
+loadLogoSeparado();
 
 // ═══════════════════════════════════════════════════════
 //  APPLY CONFIG TO DOM
@@ -1070,14 +1095,27 @@ function renderTab(tab){
 function uploadLogo(input){
   const file = input.files[0];
   if(!file) return;
-  if(file.size > 500000){ alert('El logo debe ser menor a 500KB'); return; }
+  if(file.size > 2000000){ alert('El logo debe ser menor a 2MB'); return; }
   const reader = new FileReader();
   reader.onload = e => {
-    cfg.company.logo = e.target.result;
-    saveCfg(cfg);
-    applyConfig();
-    switchTab('empresa');
-    showToast('✅ Logo actualizado');
+    // Comprimir imagen a max 300px de ancho y calidad 0.85
+    const img = new Image();
+    img.onload = function(){
+      const canvas = document.createElement('canvas');
+      const MAX = 300;
+      let w = img.width, h = img.height;
+      if(w > MAX){ h = Math.round(h * MAX / w); w = MAX; }
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL('image/png', 0.85);
+      cfg.company.logo = dataUrl;
+      saveCfg(cfg);
+      applyConfig();
+      switchTab('empresa');
+      showToast('✅ Logo actualizado');
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
