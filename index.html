@@ -995,6 +995,8 @@ function renderTab(tab){
 
   else if(tab==='catalogo'){
     const ct = cfg.catalogo || {};
+    const prods = cfg.productos || [];
+    const TECNICAS = ['Bordado','DTF','Serigrafía','Sublimación','Vinil Textil','Uniformes'];
     body.innerHTML = `
       <div class="adm-section">
         <div class="adm-section-title">Visibilidad</div>
@@ -1002,29 +1004,57 @@ function renderTab(tab){
       </div>
       <div class="adm-section">
         <div class="adm-section-title">Textos de la sección</div>
-        <div class="adm-row full"><div class="af"><label>Eyebrow / subtítulo</label><input class="ai" id="f-cat-eyebrow" value="${esc(ct.eyebrow||'Modelos destacados')}"/></div></div>
+        <div class="adm-row full"><div class="af"><label>Eyebrow</label><input class="ai" id="f-cat-eyebrow" value="${esc(ct.eyebrow||'Modelos destacados')}"/></div></div>
         <div class="adm-row full"><div class="af"><label>Título principal</label><input class="ai" id="f-cat-titulo" value="${esc(ct.titulo||'Nuestro catálogo')}"/></div></div>
         <div class="adm-row full"><div class="af"><label>Texto botón "Ver todos"</label><input class="ai" id="f-cat-cta" value="${esc(ct.ctaText||'Ver catálogo completo →')}"/></div></div>
       </div>
       <div class="adm-section">
-        <div class="adm-section-title">Cantidad de productos</div>
-        <div class="adm-row full"><div class="af"><label>¿Cuántos productos mostrar?</label>
-          <select class="ai" id="f-cat-limit">
-            <option value="4" ${ct.limit==4?'selected':''}>4 productos</option>
-            <option value="6" ${(!ct.limit||ct.limit==6)?'selected':''}>6 productos</option>
-            <option value="8" ${ct.limit==8?'selected':''}>8 productos</option>
-            <option value="12" ${ct.limit==12?'selected':''}>12 productos</option>
-          </select>
-        </div></div>
+        <div class="adm-section-title" style="display:flex;align-items:center;justify-content:space-between">
+          <span>Productos (${prods.length})</span>
+          <button onclick="abrirFormProducto()" style="background:var(--red);color:#fff;border:none;font-family:var(--ff-h);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;cursor:pointer;border-radius:2px">➕ Agregar</button>
+        </div>
+        <div id="prod-list">
+          ${prods.length===0
+            ? '<div style="text-align:center;padding:1.5rem;color:#444;font-size:.82rem">Sin productos. Agrega el primero.</div>'
+            : prods.map(function(p,i){ return `
+              <div style="background:#1a1a1a;border:1px solid rgba(255,255,255,.07);border-radius:3px;padding:.8rem 1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.8rem">
+                <div style="width:36px;height:36px;background:#111;border-radius:2px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.2rem">
+                  ${p.imagen ? '<img src="'+esc(p.imagen)+'" style="width:100%;height:100%;object-fit:cover"/>' : tecIcono(p.tecnica)}
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:var(--ff-h);font-size:.95rem;font-weight:800;text-transform:uppercase;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(p.nombre)}</div>
+                  <div style="font-size:.72rem;color:#555">${esc(p.tecnica||'')}${p.precio?' · $'+p.precio:''}</div>
+                </div>
+                <button onclick="editarProducto(${i})" style="background:rgba(255,255,255,.06);border:none;color:#aaa;font-size:.8rem;padding:.3rem .6rem;cursor:pointer;border-radius:2px">✏️</button>
+                <button onclick="eliminarProducto(${i})" style="background:rgba(212,21,21,.15);border:none;color:var(--red);font-size:.8rem;padding:.3rem .6rem;cursor:pointer;border-radius:2px">🗑</button>
+              </div>`;}).join('')
+          }
+        </div>
       </div>
-      <div class="adm-section">
+      <!-- FORM PRODUCTO -->
+      <div id="prod-form" style="display:none;background:#1a1a1a;border:1.5px solid var(--red);border-radius:4px;padding:1.2rem;margin-top:.5rem">
+        <div style="font-family:var(--ff-h);font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:1rem" id="prod-form-title">Nuevo producto</div>
+        <input type="hidden" id="f-prod-idx" value="-1"/>
+        <div class="adm-row full"><div class="af"><label>Nombre del producto</label><input class="ai" id="f-prod-nombre" placeholder="Ej: Polo Corporativo"/></div></div>
+        <div class="adm-row">
+          <div class="af"><label>Técnica</label>
+            <select class="ai" id="f-prod-tecnica">
+              ${TECNICAS.map(function(t){ return '<option value="'+t+'">'+t+'</option>'; }).join('')}
+            </select>
+          </div>
+          <div class="af"><label>Precio desde ($)</label><input class="ai" id="f-prod-precio" placeholder="Ej: 350" type="number"/></div>
+        </div>
+        <div class="adm-row full"><div class="af"><label>Descripción corta</label><input class="ai" id="f-prod-desc" placeholder="Ej: Piqué premium, desde 1 pieza"/></div></div>
+        <div class="adm-row full"><div class="af"><label>URL de imagen (opcional)</label><input class="ai" id="f-prod-img" placeholder="https://..."/></div></div>
+        <div style="display:flex;gap:.6rem;margin-top:1rem">
+          <button onclick="guardarProducto()" style="flex:1;background:var(--red);color:#fff;border:none;font-family:var(--ff-h);font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.65rem;cursor:pointer;border-radius:3px">💾 Guardar</button>
+          <button onclick="cerrarFormProducto()" style="background:rgba(255,255,255,.06);color:#666;border:none;font-family:var(--ff-h);font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.65rem 1rem;cursor:pointer;border-radius:3px">Cancelar</button>
+        </div>
+      </div>
+      <div class="adm-section" style="margin-top:1.2rem">
         <div class="adm-section-title">Franja sticky inferior</div>
         <div class="tog-row"><span class="tog-label">Mostrar franja "Ver catálogo" al hacer scroll</span><label class="tog-switch"><input type="checkbox" id="f-cat-sticky" ${ct.sticky!==false?'checked':''}><div class="tog-track"></div></label></div>
         <div class="adm-row full" style="margin-top:.8rem"><div class="af"><label>Texto de la franja</label><input class="ai" id="f-cat-sticky-txt" value="${esc(ct.stickyText||'+40 modelos — cotiza directo desde el catálogo')}"/></div></div>
-      </div>
-      <div style="background:#0d0d0d;border:1px solid rgba(255,255,255,.05);border-radius:4px;padding:1rem">
-        <div style="font-family:var(--ff-h);font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#444;margin-bottom:.5rem">ℹ️ Actualización automática</div>
-        <div style="font-size:.8rem;color:#4b5563;line-height:1.6">Los productos se cargan en tiempo real desde LANA. Cada vez que agregues o actualices un producto en LANA, aparecerá automáticamente aquí sin editar nada.</div>
       </div>`;
   }
 }
@@ -1194,6 +1224,106 @@ function enviarWA(){
   window.open(`https://wa.me/${cfg.company.wa}?text=${msg}`,'_blank');
 }
 
+function tecIcono(t){
+  var m={'Bordado':'🧵','DTF':'🖨️','Serigrafía':'🎨','Sublimación':'✨','Vinil Textil':'✂️','Uniformes':'👔'};
+  return m[t]||'👕';
+}
+
+function abrirFormProducto(){
+  var f=document.getElementById('prod-form');
+  if(f){ f.style.display='block'; }
+  var ti=document.getElementById('prod-form-title');
+  if(ti) ti.textContent='Nuevo producto';
+  var idx=document.getElementById('f-prod-idx');
+  if(idx) idx.value='-1';
+  ['f-prod-nombre','f-prod-precio','f-prod-desc','f-prod-img'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+}
+
+function cerrarFormProducto(){
+  var f=document.getElementById('prod-form');
+  if(f) f.style.display='none';
+}
+
+function editarProducto(i){
+  var p=(cfg.productos||[])[i];
+  if(!p) return;
+  abrirFormProducto();
+  var ti=document.getElementById('prod-form-title');
+  if(ti) ti.textContent='Editar producto';
+  document.getElementById('f-prod-idx').value=i;
+  document.getElementById('f-prod-nombre').value=p.nombre||'';
+  document.getElementById('f-prod-precio').value=p.precio||'';
+  document.getElementById('f-prod-desc').value=p.descripcion||'';
+  document.getElementById('f-prod-img').value=p.imagen||'';
+  var sel=document.getElementById('f-prod-tecnica');
+  if(sel&&p.tecnica) sel.value=p.tecnica;
+}
+
+function guardarProducto(){
+  var nombre=document.getElementById('f-prod-nombre').value.trim();
+  if(!nombre){ alert('El nombre es obligatorio'); return; }
+  var prod={
+    nombre: nombre,
+    tecnica: document.getElementById('f-prod-tecnica').value,
+    precio: document.getElementById('f-prod-precio').value.trim(),
+    descripcion: document.getElementById('f-prod-desc').value.trim(),
+    imagen: document.getElementById('f-prod-img').value.trim()
+  };
+  if(!cfg.productos) cfg.productos=[];
+  var idx=parseInt(document.getElementById('f-prod-idx').value);
+  if(idx>=0){ cfg.productos[idx]=prod; } else { cfg.productos.push(prod); }
+  saveCfg(cfg);
+  renderCardsLocales();
+  switchTab('catalogo');
+  showToast('✅ Producto guardado');
+}
+
+function eliminarProducto(i){
+  if(!confirm('¿Eliminar este producto?')) return;
+  cfg.productos.splice(i,1);
+  saveCfg(cfg);
+  renderCardsLocales();
+  switchTab('catalogo');
+  showToast('Producto eliminado');
+}
+
+function renderCardsLocales(){
+  var grid=document.getElementById('lana-cat-grid');
+  var empty=document.getElementById('lana-cat-empty');
+  var cta=document.getElementById('lana-cat-cta');
+  if(!grid) return;
+  var prods=cfg.productos||[];
+  var limit=(cfg.catalogo&&cfg.catalogo.limit)?cfg.catalogo.limit:6;
+  var visible=prods.slice(0,limit);
+  if(visible.length===0){
+    grid.style.display='none';
+    if(empty) empty.style.display='block';
+    if(cta) cta.style.display='none';
+    return;
+  }
+  grid.style.display='';
+  if(empty) empty.style.display='none';
+  if(cta) cta.style.display='block';
+  grid.innerHTML=visible.map(function(p){
+    var catUrl='https://rpartidaislas-cloud.github.io/promodesk/catalogo.html?t=bordadosexpress';
+    var icon=tecIcono(p.tecnica);
+    var imgHtml=p.imagen
+      ? '<img class="cat-card-img" src="'+esc(p.imagen)+'" alt="'+esc(p.nombre)+'" loading="lazy" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
+        +'<div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:3.5rem">'+icon+'</div>'
+      : '<div class="cat-ph">'+icon+'</div>';
+    var precioHtml=p.precio?'<div class="cat-price">Desde $'+esc(p.precio)+'</div>':'';
+    var badgeHtml=p.tecnica?'<div class="cat-badge">'+esc(p.tecnica)+'</div>':'';
+    var descHtml=p.descripcion?'<div class="cat-sub">'+esc(p.descripcion.substring(0,60))+(p.descripcion.length>60?'…':'')+'</div>':'';
+    return '<a href="'+catUrl+'" target="_blank" class="cat-card">'
+      +'<div class="cat-card-top">'+imgHtml+badgeHtml+precioHtml+'<div class="cat-overlay">Ver en catálogo →</div></div>'
+      +'<div class="cat-card-body"><div class="cat-name">'+esc(p.nombre)+'</div>'+descHtml+'</div>'
+      +'</a>';
+  }).join('');
+  grid.querySelectorAll('.cat-card').forEach(function(el){ io.observe(el); });
+}
+
 // ═══════════════════════════════════════════════════════
 //  LANA CATALOG PREVIEW — carga productos reales en vivo
 // ═══════════════════════════════════════════════════════
@@ -1269,36 +1399,7 @@ function renderLanaCard(p){
 function escHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function loadLanaCatalog(){
-  var grid = document.getElementById('lana-cat-grid');
-  var empty = document.getElementById('lana-cat-empty');
-  var cta = document.getElementById('lana-cat-cta');
-  if(!grid) return;
-
-  var limit = (cfg.catalogo && cfg.catalogo.limit) ? cfg.catalogo.limit : 6;
-  window._lastCatLimit = limit;
-  fetch(LANA_URL+'/rest/v1/productos?tenant_id=eq.'+LANA_TENANT+'&order=nombre.asc&limit='+limit, {
-    headers:{
-      'apikey': LANA_KEY,
-      'Authorization': 'Bearer '+LANA_KEY,
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    if(!Array.isArray(data) || data.length === 0){
-      grid.style.display = 'none';
-      if(empty) empty.style.display = 'block';
-      return;
-    }
-    grid.innerHTML = data.map(renderLanaCard).join('');
-    if(cta) cta.style.display = 'block';
-    // re-observe nuevas cards para reveal
-    grid.querySelectorAll('.cat-card').forEach(function(el){ io.observe(el); });
-  })
-  .catch(function(){
-    grid.style.display = 'none';
-    if(empty) empty.style.display = 'block';
-  });
+  renderCardsLocales();
 }
 
 // Scroll + init
