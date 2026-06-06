@@ -1276,7 +1276,7 @@ function loadLanaCatalog(){
 
   var limit = (cfg.catalogo && cfg.catalogo.limit) ? cfg.catalogo.limit : 6;
   window._lastCatLimit = limit;
-  fetch(LANA_URL+'/rest/v1/productos?tenant_id=eq.'+LANA_TENANT+'&activo=eq.true&order=nombre.asc&limit='+limit, {
+  fetch(LANA_URL+'/rest/v1/productos?tenant_id=eq.'+LANA_TENANT+'&order=nombre.asc&limit='+limit, {
     headers:{
       'apikey': LANA_KEY,
       'Authorization': 'Bearer '+LANA_KEY,
