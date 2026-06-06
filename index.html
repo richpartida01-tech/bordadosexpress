@@ -62,23 +62,31 @@ nav.shadow{box-shadow:0 4px 24px rgba(0,0,0,.12)}
 .hstat-label{font-size:.75rem;color:var(--g3);letter-spacing:.06em;margin-top:.2rem}
 
 /* HERO BREAKOUT GORRA */
-.hero-gorra-wrap{position:absolute;right:0;top:0;width:50%;height:100%;overflow:visible;pointer-events:none;z-index:3}
-.hero-gorra-img{position:absolute;width:clamp(340px,45vw,560px);top:-80px;left:-60px;transform:perspective(700px) rotateY(-10deg) rotateX(6deg) rotate(-10deg);filter:drop-shadow(-20px 30px 40px rgba(0,0,0,.55)) drop-shadow(0 -5px 25px rgba(212,21,21,.15));animation:gorraLand 1s cubic-bezier(.22,.61,.36,1) forwards;z-index:10}
-@keyframes gorraLand{0%{transform:perspective(700px) rotateY(-10deg) rotateX(30deg) rotate(-10deg) translateY(-160px) scale(.5);opacity:0}55%{transform:perspective(700px) rotateY(-10deg) rotateX(0deg) rotate(-10deg) translateY(14px) scale(1.06)}100%{transform:perspective(700px) rotateY(-10deg) rotateX(6deg) rotate(-10deg) translateY(0) scale(1);opacity:1}}
-.hero-gorra-glow{position:absolute;top:50%;left:50%;width:320px;height:320px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(212,21,21,.15) 0%,transparent 65%);border-radius:50%;animation:gorraGlow 2s ease-in-out infinite alternate;z-index:2}
-@keyframes gorraGlow{0%{opacity:.5;transform:translate(-50%,-50%) scale(.9)}100%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
-.hero-crack{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible}
-.hero-frag{position:absolute;background:#f2f2f2;border:1px solid #d4d4d4;z-index:8}
-.hf1{width:36px;height:20px;top:38%;left:25%;clip-path:polygon(0 0,100% 15%,85% 100%,5% 90%);animation:hfly1 .9s .15s ease-out both}
-.hf2{width:20px;height:30px;top:22%;left:46%;clip-path:polygon(15% 0,100% 8%,92% 100%,0 88%);animation:hfly2 .9s .1s ease-out both}
-.hf3{width:28px;height:16px;top:58%;left:20%;clip-path:polygon(0 20%,100% 0,95% 80%,0 100%);animation:hfly3 .9s .2s ease-out both}
-.hf4{width:14px;height:14px;top:18%;left:36%;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);animation:hfly4 .9s .05s ease-out both}
-.hf5{width:42px;height:14px;top:45%;left:8%;clip-path:polygon(0 0,100% 20%,90% 100%,0 80%);animation:hfly5 .9s .18s ease-out both}
-@keyframes hfly1{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.7;transform:translate(-55px,-65px) rotate(-25deg)}}
-@keyframes hfly2{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.6;transform:translate(35px,-85px) rotate(40deg)}}
-@keyframes hfly3{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.5;transform:translate(-30px,45px) rotate(15deg)}}
-@keyframes hfly4{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.8;transform:translate(25px,-75px) rotate(-60deg)}}
-@keyframes hfly5{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.6;transform:translate(-70px,8px) rotate(-12deg)}}
+.hero-gorra-wrap{position:absolute;right:0;top:0;width:52%;height:100%;overflow:visible;pointer-events:none;z-index:3}
+/* Caja con borde que la gorra "rompe" */
+.hero-breakout-box{position:absolute;right:6%;top:50%;transform:translateY(-50%);width:clamp(240px,30vw,380px);height:clamp(280px,48vh,480px);border:3px solid var(--bk);background:var(--g1);z-index:6}
+.hero-breakout-box::before{content:'';position:absolute;top:-3px;left:-3px;width:44px;height:44px;border-top:3px solid var(--red);border-left:3px solid var(--red)}
+.hero-breakout-box::after{content:'';position:absolute;bottom:-3px;right:-3px;width:44px;height:44px;border-bottom:3px solid var(--red);border-right:3px solid var(--red)}
+.hero-box-label{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-family:var(--ff-h);font-weight:700;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g3)}
+/* Gorra sale ENCIMA del borde superior de la caja */
+.hero-gorra-img{position:absolute;width:clamp(300px,42vw,520px);right:3%;top:-18%;z-index:20;transform:perspective(700px) rotateY(-12deg) rotateX(5deg) rotate(-8deg);filter:drop-shadow(-18px 28px 35px rgba(0,0,0,.5)) drop-shadow(0 -4px 22px rgba(212,21,21,.18));animation:gorraBreak 1s cubic-bezier(.22,.61,.36,1) forwards}
+@keyframes gorraBreak{0%{top:15%;opacity:0;transform:perspective(700px) rotateY(-12deg) rotateX(28deg) rotate(-8deg) scale(.55)}60%{top:-22%}100%{top:-18%;opacity:1;transform:perspective(700px) rotateY(-12deg) rotateX(5deg) rotate(-8deg) scale(1)}}
+.hero-gorra-glow{position:absolute;right:10%;top:28%;width:300px;height:300px;background:radial-gradient(circle,rgba(212,21,21,.13) 0%,transparent 65%);border-radius:50%;animation:gorraGlow 2s ease-in-out infinite alternate;z-index:5}
+@keyframes gorraGlow{0%{opacity:.5;transform:scale(.9)}100%{opacity:1;transform:scale(1.1)}}
+/* Crack lines rojos saliendo del borde superior de la caja */
+.hero-crack{position:absolute;right:6%;overflow:visible;z-index:14;pointer-events:none}
+/* Fragmentos volando */
+.hero-frag{position:absolute;background:#e8e8e8;border:1px solid #ccc;z-index:15}
+.hf1{width:30px;height:14px;right:44%;top:20%;clip-path:polygon(0 0,100% 15%,85% 100%,5% 90%);animation:hfly1 .8s .12s ease-out both}
+.hf2{width:16px;height:24px;right:34%;top:12%;clip-path:polygon(15% 0,100% 8%,92% 100%,0 88%);animation:hfly2 .8s .06s ease-out both}
+.hf3{width:22px;height:12px;right:38%;top:8%;clip-path:polygon(0 20%,100% 0,95% 80%,0 100%);animation:hfly3 .8s .16s ease-out both}
+.hf4{width:10px;height:10px;right:42%;top:16%;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);animation:hfly4 .8s .03s ease-out both}
+.hf5{width:18px;height:10px;right:30%;top:18%;clip-path:polygon(0 0,100% 20%,90% 100%,0 80%);animation:hfly5 .8s .19s ease-out both}
+@keyframes hfly1{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.8;transform:translate(-40px,-60px) rotate(-22deg)}}
+@keyframes hfly2{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.7;transform:translate(25px,-70px) rotate(38deg)}}
+@keyframes hfly3{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.6;transform:translate(-18px,-45px) rotate(14deg)}}
+@keyframes hfly4{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.9;transform:translate(18px,-65px) rotate(-52deg)}}
+@keyframes hfly5{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.65;transform:translate(10px,-50px) rotate(28deg)}}
 @media(max-width:768px){.hero-gorra-wrap{display:none}}
 
 /* TAPE */
@@ -401,23 +409,29 @@ footer{background:var(--bk);padding:2.5rem 5vw;display:flex;align-items:center;j
   <!-- BREAKOUT GORRA -->
   <div class="hero-gorra-wrap">
     <div class="hero-gorra-glow"></div>
-    <svg class="hero-crack" viewBox="0 0 500 700" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="var(--red)" fill="none">
-        <path d="M250,350 L80,20" stroke-width="1.2" opacity=".4"/>
-        <path d="M250,350 L420,10" stroke-width="1.2" opacity=".4"/>
-        <path d="M250,350 L490,200" stroke-width="1" opacity=".3"/>
-        <path d="M250,350 L460,580" stroke-width="1" opacity=".3"/>
-        <path d="M250,350 L180,690" stroke-width="1.2" opacity=".4"/>
-        <path d="M250,350 L10,420" stroke-width="1" opacity=".3"/>
-        <path d="M155,175 L90,50 M155,175 L110,20" stroke-width=".7" opacity=".25"/>
-        <path d="M350,180 L410,40 M350,180 L455,110" stroke-width=".7" opacity=".25"/>
+    <!-- Caja con borde que la gorra rompe -->
+    <div class="hero-breakout-box">
+      <div class="hero-box-label">Colección 2025</div>
+    </div>
+    <!-- Crack lines saliendo del borde superior -->
+    <svg class="hero-crack" style="top:calc(50% - 244px);width:clamp(240px,30vw,380px)" viewBox="0 0 380 80" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="var(--red)" fill="none" stroke-linecap="round">
+        <path d="M190,80 L80,-5" stroke-width="1.1" opacity=".55"/>
+        <path d="M190,80 L200,-18" stroke-width="1.3" opacity=".65"/>
+        <path d="M190,80 L290,10" stroke-width=".9" opacity=".45"/>
+        <path d="M190,80 L120,-25" stroke-width=".8" opacity=".38"/>
+        <path d="M190,80 L260,-10" stroke-width=".7" opacity=".32"/>
+        <path d="M165,55 L110,-8 M165,55 L85,5" stroke-width=".5" opacity=".25"/>
+        <path d="M215,50 L270,-2 M215,50 L300,18" stroke-width=".5" opacity=".25"/>
       </g>
     </svg>
+    <!-- Fragmentos volando -->
     <div class="hero-frag hf1"></div>
     <div class="hero-frag hf2"></div>
     <div class="hero-frag hf3"></div>
     <div class="hero-frag hf4"></div>
     <div class="hero-frag hf5"></div>
+    <!-- La gorra sale ENCIMA del borde de la caja -->
     <img class="hero-gorra-img" src="img/gorra.png" alt="Gorra Bordados Express"/>
   </div>
   <div class="hero-stats reveal">
