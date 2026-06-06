@@ -458,8 +458,8 @@ footer{background:var(--bk);padding:2.5rem 5vw;display:flex;align-items:center;j
   </div>
   <div class="cat-preview">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:2rem">
-      <div><div class="section-eyebrow">Modelos destacados</div><h3 style="font-family:var(--ff-h);font-weight:900;font-size:clamp(2rem,4vw,3.2rem);text-transform:uppercase;line-height:.95;color:var(--bk)">Nuestro <span style="color:var(--red)">catálogo</span></h3></div>
-      <a href="https://rpartidaislas-cloud.github.io/promodesk/catalogo.html?t=bordadosexpress" target="_blank" class="btn-bk" style="flex-shrink:0;align-self:flex-end;">Ver catálogo completo →</a>
+      <div><div class="section-eyebrow" id="d-cat-eyebrow">Modelos destacados</div><h3 style="font-family:var(--ff-h);font-weight:900;font-size:clamp(2rem,4vw,3.2rem);text-transform:uppercase;line-height:.95;color:var(--bk)" id="d-cat-titulo">Nuestro <span style="color:var(--red)">catálogo</span></h3></div>
+      <a href="https://rpartidaislas-cloud.github.io/promodesk/catalogo.html?t=bordadosexpress" target="_blank" class="btn-bk" style="flex-shrink:0;align-self:flex-end;" id="d-cat-cta-btn">Ver catálogo completo →</a>
     </div>
     <div class="cat-grid reveal" id="lana-cat-grid">
       <!-- skeleton loaders -->
@@ -487,7 +487,7 @@ footer{background:var(--bk);padding:2.5rem 5vw;display:flex;align-items:center;j
 
 <!-- STICKY CATALOG BAR -->
 <div class="sticky-cat" id="sticky-cat">
-  <div class="sticky-cat-text">📦 <span>+40 modelos</span> — cotiza directo desde el catálogo</div>
+  <div class="sticky-cat-text" id="d-sticky-txt">📦 <span>+40 modelos</span> — cotiza directo desde el catálogo</div>
   <a href="catalogo.html" class="sticky-cat-btn">Ver catálogo →</a>
   <button class="sticky-cat-close" onclick="this.closest('.sticky-cat').style.display='none'">✕</button>
 </div>
@@ -603,6 +603,7 @@ footer{background:var(--bk);padding:2.5rem 5vw;display:flex;align-items:center;j
         <button class="atab" onclick="switchTab('estadisticas')">📊 Estadísticas</button>
         <button class="atab" onclick="switchTab('servicios')">⚙ Servicios</button>
         <button class="atab" onclick="switchTab('lana')">🚀 LANA</button>
+        <button class="atab" onclick="switchTab('catalogo')">🗂 Catálogo</button>
       </div>
       <div class="adm-body" id="adm-body"></div>
       <div class="adm-save-bar">
@@ -795,7 +796,7 @@ function showMain(){
 function switchTab(tab){
   currentTab = tab;
   document.querySelectorAll('.atab').forEach((btn,i)=>{
-    const tabs=['empresa','apariencia','estadisticas','servicios','lana'];
+    const tabs=['empresa','apariencia','estadisticas','servicios','lana','catalogo'];
     btn.classList.toggle('on', tabs[i]===tab);
   });
   renderTab(tab);
@@ -985,6 +986,41 @@ function renderTab(tab){
         </div>
       </div>`;
   }
+
+  else if(tab==='catalogo'){
+    const ct = cfg.catalogo || {};
+    body.innerHTML = `
+      <div class="adm-section">
+        <div class="adm-section-title">Visibilidad</div>
+        <div class="tog-row"><span class="tog-label">Mostrar sección catálogo en el landing</span><label class="tog-switch"><input type="checkbox" id="f-cat-visible" ${ct.visible!==false?'checked':''}><div class="tog-track"></div></label></div>
+      </div>
+      <div class="adm-section">
+        <div class="adm-section-title">Textos de la sección</div>
+        <div class="adm-row full"><div class="af"><label>Eyebrow / subtítulo</label><input class="ai" id="f-cat-eyebrow" value="${esc(ct.eyebrow||'Modelos destacados')}"/></div></div>
+        <div class="adm-row full"><div class="af"><label>Título principal</label><input class="ai" id="f-cat-titulo" value="${esc(ct.titulo||'Nuestro catálogo')}"/></div></div>
+        <div class="adm-row full"><div class="af"><label>Texto botón "Ver todos"</label><input class="ai" id="f-cat-cta" value="${esc(ct.ctaText||'Ver catálogo completo →')}"/></div></div>
+      </div>
+      <div class="adm-section">
+        <div class="adm-section-title">Cantidad de productos</div>
+        <div class="adm-row full"><div class="af"><label>¿Cuántos productos mostrar?</label>
+          <select class="ai" id="f-cat-limit">
+            <option value="4" ${ct.limit==4?'selected':''}>4 productos</option>
+            <option value="6" ${(!ct.limit||ct.limit==6)?'selected':''}>6 productos</option>
+            <option value="8" ${ct.limit==8?'selected':''}>8 productos</option>
+            <option value="12" ${ct.limit==12?'selected':''}>12 productos</option>
+          </select>
+        </div></div>
+      </div>
+      <div class="adm-section">
+        <div class="adm-section-title">Franja sticky inferior</div>
+        <div class="tog-row"><span class="tog-label">Mostrar franja "Ver catálogo" al hacer scroll</span><label class="tog-switch"><input type="checkbox" id="f-cat-sticky" ${ct.sticky!==false?'checked':''}><div class="tog-track"></div></label></div>
+        <div class="adm-row full" style="margin-top:.8rem"><div class="af"><label>Texto de la franja</label><input class="ai" id="f-cat-sticky-txt" value="${esc(ct.stickyText||'+40 modelos — cotiza directo desde el catálogo')}"/></div></div>
+      </div>
+      <div style="background:#0d0d0d;border:1px solid rgba(255,255,255,.05);border-radius:4px;padding:1rem">
+        <div style="font-family:var(--ff-h);font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#444;margin-bottom:.5rem">ℹ️ Actualización automática</div>
+        <div style="font-size:.8rem;color:#4b5563;line-height:1.6">Los productos se cargan en tiempo real desde LANA. Cada vez que agregues o actualices un producto en LANA, aparecerá automáticamente aquí sin editar nada.</div>
+      </div>`;
+  }
 }
 
 function uploadLogo(input){
@@ -1059,8 +1095,24 @@ function saveConfig(){
       if(pills) s.pills=pills.value.split(',').map(p=>p.trim()).filter(Boolean);
     });
   }
-  else if(tab==='lana'){
-    cfg.tenant.lanaUrl = v('f-lana-url');
+  else if(tab==='catalogo'){
+    if(!cfg.catalogo) cfg.catalogo = {};
+    const el_v = document.getElementById('f-cat-visible');
+    const el_e = document.getElementById('f-cat-eyebrow');
+    const el_t = document.getElementById('f-cat-titulo');
+    const el_c = document.getElementById('f-cat-cta');
+    const el_l = document.getElementById('f-cat-limit');
+    const el_s = document.getElementById('f-cat-sticky');
+    const el_st= document.getElementById('f-cat-sticky-txt');
+    if(el_v)  cfg.catalogo.visible    = el_v.checked;
+    if(el_e)  cfg.catalogo.eyebrow    = el_e.value;
+    if(el_t)  cfg.catalogo.titulo     = el_t.value;
+    if(el_c)  cfg.catalogo.ctaText    = el_c.value;
+    if(el_l)  cfg.catalogo.limit      = parseInt(el_l.value)||6;
+    if(el_s)  cfg.catalogo.sticky     = el_s.checked;
+    if(el_st) cfg.catalogo.stickyText = el_st.value;
+    applyCatalogo();
+  }
     cfg.tenant.id = v('f-tenant-id');
     const ac=document.getElementById('f-lana-active');
     if(ac) cfg.tenant.lanaActive=ac.checked;
@@ -1208,7 +1260,9 @@ function loadLanaCatalog(){
   var cta = document.getElementById('lana-cat-cta');
   if(!grid) return;
 
-  fetch(LANA_URL+'/rest/v1/productos?tenant_id=eq.'+LANA_TENANT+'&activo=eq.true&order=nombre.asc&limit=6', {
+  var limit = (cfg.catalogo && cfg.catalogo.limit) ? cfg.catalogo.limit : 6;
+  window._lastCatLimit = limit;
+  fetch(LANA_URL+'/rest/v1/productos?tenant_id=eq.'+LANA_TENANT+'&activo=eq.true&order=nombre.asc&limit='+limit, {
     headers:{
       'apikey': LANA_KEY,
       'Authorization': 'Bearer '+LANA_KEY,
@@ -1249,9 +1303,36 @@ window.addEventListener('scroll', ()=>{
   }
 });
 
+function applyCatalogo(){
+  const ct = cfg.catalogo || {};
+  // Sección completa
+  const sec = document.getElementById('productos');
+  if(sec) sec.style.display = ct.visible===false ? 'none' : '';
+  // Eyebrow
+  const ey = document.getElementById('d-cat-eyebrow');
+  if(ey) ey.textContent = ct.eyebrow || 'Modelos destacados';
+  // Título
+  const ti = document.getElementById('d-cat-titulo');
+  if(ti) ti.innerHTML = ct.titulo || 'Nuestro <span style="color:var(--red)">catálogo</span>';
+  // Botón CTA
+  const cta = document.getElementById('d-cat-cta-btn');
+  if(cta) cta.textContent = ct.ctaText || 'Ver catálogo completo →';
+  // Franja sticky
+  const bar = document.getElementById('sticky-cat');
+  if(bar) bar.style.display = ct.sticky===false ? 'none' : '';
+  const barTxt = document.getElementById('d-sticky-txt');
+  if(barTxt) barTxt.innerHTML = ct.stickyText || '+40 modelos — cotiza directo desde el catálogo';
+  // Recargar productos si cambió el límite
+  if(ct.limit && ct.limit !== window._lastCatLimit){
+    window._lastCatLimit = ct.limit;
+    loadLanaCatalog();
+  }
+}
+
 // Boot
 applyConfig();
 applySections();
+applyCatalogo();
 loadLanaCatalog();
 </script>
 </body>
