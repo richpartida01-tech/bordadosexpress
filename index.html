@@ -1325,7 +1325,13 @@ function renderCardsLocales(){
 }
 
 function renderCardsLocales(){
-  loadLanaCatalog();
+  // alias para compatibilidad con el admin panel
+  var prods = cfg.productos || [];
+  if(prods.length > 0){
+    // si hay productos locales los muestra, si no deja que loadLanaCatalog haga su trabajo
+    var grid = document.getElementById('lana-cat-grid');
+    if(grid) grid.innerHTML = '';
+  }
 }
 
 // ═══════════════════════════════════════════════════════
