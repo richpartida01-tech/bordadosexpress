@@ -1007,6 +1007,13 @@ function renderTab(tab){
         <div class="adm-row full"><div class="af"><label>Texto botón "Ver todos"</label><input class="ai" id="f-cat-cta" value="${esc(ct.ctaText||'Ver catálogo completo →')}"/></div></div>
       </div>
       <div class="adm-section">
+        <div class="adm-section-title">Fuente del catálogo</div>
+        <div class="adm-row full"><div class="af"><label>Slug del tenant en LANA</label>
+          <input class="ai" id="f-lana-slug" value="${esc((cfg.catalogo&&cfg.catalogo.lanaSlug)||'bordadosexpress')}" placeholder="ej: bordadosexpress"/>
+        </div></div>
+        <div style="font-size:.75rem;color:#555;margin-top:.3rem;margin-bottom:.5rem">Cambia el slug para cargar el catálogo de otro tenant de LANA.</div>
+      </div>
+      <div class="adm-section">
         <div class="adm-section-title" style="display:flex;align-items:center;justify-content:space-between">
           <span>Productos de LANA</span>
           <button onclick="cargarProductosLana()" id="btn-cargar-lana" style="background:var(--red);color:#fff;border:none;font-family:var(--ff-h);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .9rem;cursor:pointer;border-radius:2px">🔄 Cargar desde LANA</button>
@@ -1205,36 +1212,52 @@ function beHeaders(){
 function cargarProductosLana(){
   var list = document.getElementById('lana-prod-list');
   if(!list) return;
-  list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:#666;font-size:.82rem">⏳ Cargando productos...</div>';
+  var slug = currentBESlug();
 
-  // 1. Traer selección guardada en BE
-  var selPromise = fetch(BE_URL+'/rest/v1/landing_catalogo?tenant_slug=eq.'+BE_SLUG+'&select=producto_id,activo,orden', { headers: beHeaders() })
-    .then(function(r){ return r.json(); })
-    .catch(function(){ return []; });
+  // Guardar slug en cfg
+  if(!cfg.catalogo) cfg.catalogo = {};
+  cfg.catalogo.lanaSlug = slug;
+  saveCfg(cfg);
 
-  // 2. Traer productos de LANA
-  var lanaPromise = fetch(LANA_URL+'/rest/v1/productos?tenant_id=eq.'+LANA_TENANT+'&active=eq.true&order=name.asc&limit=50', {
+  list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:#666;font-size:.82rem">⏳ Cargando productos de LANA...</div>';
+
+  // Buscar tenant_id por slug
+  fetch(LANA_URL+'/rest/v1/tenants?slug=eq.'+encodeURIComponent(slug)+'&select=id', {
     headers: { 'apikey': LANA_KEY, 'Authorization': 'Bearer '+LANA_KEY }
-  }).then(function(r){ return r.json(); }).catch(function(){ return []; });
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(tenants){
+    var tid = (Array.isArray(tenants) && tenants.length) ? tenants[0].id : LANA_TENANT;
 
-  Promise.all([selPromise, lanaPromise]).then(function(results){
+    // Traer selección guardada en BE
+    var selPromise = fetch(BE_URL+'/rest/v1/landing_catalogo?tenant_slug=eq.'+slug+'&select=producto_id,activo,orden', { headers: beHeaders() })
+      .then(function(r){ return r.json(); }).catch(function(){ return []; });
+
+    // Traer productos de LANA
+    var lanaPromise = fetch(LANA_URL+'/rest/v1/productos?tenant_id=eq.'+tid+'&active=eq.true&order=name.asc&limit=50', {
+      headers: { 'apikey': LANA_KEY, 'Authorization': 'Bearer '+LANA_KEY }
+    }).then(function(r){ return r.json(); }).catch(function(){ return []; });
+
+    return Promise.all([selPromise, lanaPromise]);
+  })
+  .then(function(results){
     var seleccion = Array.isArray(results[0]) ? results[0] : [];
     var productos = Array.isArray(results[1]) ? results[1] : [];
-
-    // mapa de seleccionados
     var selMap = {};
     seleccion.forEach(function(s){ selMap[s.producto_id] = s.activo; });
 
     if(productos.length === 0){
-      list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:#555;font-size:.82rem">No se encontraron productos en LANA para este tenant.</div>';
+      list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:#555;font-size:.82rem">No se encontraron productos activos en LANA para el tenant "'+escHtml(slug)+'".</div>';
       return;
     }
 
-    list.innerHTML = '<div style="font-size:.75rem;color:#555;margin-bottom:.8rem">Activa los productos que quieres mostrar en el landing:</div>'
+    list.innerHTML = '<div style="font-size:.75rem;color:#555;margin-bottom:.8rem">'+productos.length+' productos encontrados. Activa los que quieres mostrar en el landing:</div>'
       + productos.map(function(p){
         var activo = selMap.hasOwnProperty(p.id) ? selMap[p.id] : false;
         var icon = tecIcono(p.cat);
-        var img = p.main_img ? '<img src="'+escHtml(p.main_img)+'" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display=\'none\'">' : icon;
+        var img = p.main_img
+          ? '<img src="'+escHtml(p.main_img)+'" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display=\'none\'">'
+          : icon;
         return '<div style="background:#1a1a1a;border:1px solid rgba(255,255,255,.07);border-radius:3px;padding:.7rem 1rem;margin-bottom:.4rem;display:flex;align-items:center;gap:.8rem">'
           +'<div style="width:36px;height:36px;background:#111;border-radius:2px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.1rem">'+img+'</div>'
           +'<div style="flex:1;min-width:0">'
@@ -1245,6 +1268,9 @@ function cargarProductosLana(){
           +'</div>';
       }).join('')
       +'<button onclick="guardarSeleccionLanding()" style="width:100%;margin-top:.8rem;background:var(--red);color:#fff;border:none;font-family:var(--ff-h);font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.7rem;cursor:pointer;border-radius:3px">💾 Guardar selección</button>';
+  })
+  .catch(function(e){
+    list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:#f87171;font-size:.82rem">❌ Error al cargar: '+e.message+'</div>';
   });
 }
 
@@ -1256,28 +1282,40 @@ function guardarSeleccionLanding(){
   var checks = document.querySelectorAll('#lana-prod-list input[type=checkbox][data-pid]');
   if(!checks.length){ showToast('Sin productos que guardar'); return; }
 
-  // Borrar selección anterior y reinsertar
-  fetch(BE_URL+'/rest/v1/landing_catalogo?tenant_slug=eq.'+BE_SLUG, {
-    method: 'DELETE',
-    headers: beHeaders()
-  }).then(function(){
-    var rows = [];
-    var orden = 0;
-    checks.forEach(function(ch){
-      rows.push({ tenant_slug: BE_SLUG, producto_id: parseInt(ch.dataset.pid), activo: ch.checked, orden: orden++ });
-    });
-    return fetch(BE_URL+'/rest/v1/landing_catalogo', {
-      method: 'POST',
-      headers: beHeaders(),
-      body: JSON.stringify(rows)
-    });
-  }).then(function(){
+  var btn = document.querySelector('#lana-prod-list button[onclick="guardarSeleccionLanding()"]');
+  if(btn){ btn.textContent = '⏳ Guardando...'; btn.disabled = true; }
+
+  var rows = [];
+  var orden = 0;
+  checks.forEach(function(ch){
+    rows.push({ tenant_slug: currentBESlug(), producto_id: parseInt(ch.dataset.pid), activo: ch.checked, orden: orden++ });
+  });
+
+  // Upsert — insert o actualiza por tenant_slug+producto_id
+  fetch(BE_URL+'/rest/v1/landing_catalogo', {
+    method: 'POST',
+    headers: {
+      'apikey': BE_KEY,
+      'Authorization': 'Bearer '+BE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates,return=minimal'
+    },
+    body: JSON.stringify(rows)
+  }).then(function(r){
+    if(!r.ok) throw new Error('Status '+r.status);
     showToast('✅ Selección guardada');
     loadLanaCatalog();
+    if(btn){ btn.textContent = '💾 Guardar selección'; btn.disabled = false; }
   }).catch(function(e){
-    showToast('❌ Error al guardar');
+    showToast('❌ Error: '+e.message);
     console.error(e);
+    if(btn){ btn.textContent = '💾 Guardar selección'; btn.disabled = false; }
   });
+}
+
+function currentBESlug(){
+  var inp = document.getElementById('f-lana-slug');
+  return (inp && inp.value.trim()) ? inp.value.trim() : BE_SLUG;
 }
 
 function tecIcono(t){
