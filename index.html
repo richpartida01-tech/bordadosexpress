@@ -602,11 +602,11 @@ footer{background:var(--bk);padding:2.5rem 5vw;display:flex;align-items:center;j
       </div>
       <div class="adm-tabs" id="adm-tabs">
         <button class="atab on" onclick="switchTab('empresa')">🏢 Empresa</button>
-        <button class="atab" onclick="switchTab('apariencia')">🎨 Apariencia</button>
-        <button class="atab" onclick="switchTab('estadisticas')">📊 Estadísticas</button>
-        <button class="atab" onclick="switchTab('servicios')">⚙ Servicios</button>
-        <button class="atab" onclick="switchTab('lana')">🚀 LANA</button>
         <button class="atab" onclick="switchTab('catalogo')">🗂 Catálogo</button>
+        <button class="atab" onclick="switchTab('servicios')">⚙ Servicios</button>
+        <button class="atab" onclick="switchTab('apariencia')">🎨 Apariencia</button>
+        <button class="atab" onclick="switchTab('estadisticas')">📊 Stats</button>
+        <button class="atab" onclick="switchTab('lana')">🚀 LANA</button>
       </div>
       <div class="adm-body" id="adm-body"></div>
       <div class="adm-save-bar">
@@ -802,7 +802,7 @@ function showMain(){
 function switchTab(tab){
   currentTab = tab;
   document.querySelectorAll('.atab').forEach((btn,i)=>{
-    const tabs=['empresa','apariencia','estadisticas','servicios','lana','catalogo'];
+    const tabs=['empresa','catalogo','servicios','apariencia','estadisticas','lana'];
     btn.classList.toggle('on', tabs[i]===tab);
   });
   renderTab(tab);
@@ -1324,76 +1324,84 @@ function renderCardsLocales(){
   grid.querySelectorAll('.cat-card').forEach(function(el){ io.observe(el); });
 }
 
+function renderCardsLocales(){
+  loadLanaCatalog();
+}
+
 // ═══════════════════════════════════════════════════════
-//  LANA CATALOG PREVIEW — carga productos reales en vivo
+//  LANA CATALOG PREVIEW — conectado en tiempo real
 // ═══════════════════════════════════════════════════════
-const LANA_URL  = 'https://lgjdzaqjrmmzyrenevfm.supabase.co';
-const LANA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxnamR6YXFqcm1tenlyZW5ldmZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MjE3MjIsImV4cCI6MjA5NDI5NzcyMn0.hMwcuvEqNN7DglKj5pCSn9vWgfze5BrvO5JbBecju-Y';
+const LANA_URL   = 'https://lgjdzaqjrmmzyrenevfm.supabase.co';
+const LANA_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxnamR6YXFqcm1tenlyZW5ldmZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MjE3MjIsImV4cCI6MjA5NDI5NzcyMn0.hMwcuvEqNN7DglKj5pCSn9vWgfze5BrvO5JbBecju-Y';
 const LANA_TENANT = '036bb85f-c7d3-4e7a-84e9-a631557ac955';
 const LANA_CAT_URL = 'https://rpartidaislas-cloud.github.io/promodesk/catalogo.html?t=bordadosexpress';
 
-const TECNICA_ICON = {
-  'bordado':'🧵','dtf':'🖨️','serigrafia':'🎨','serigrafía':'🎨',
-  'sublimacion':'✨','sublimación':'✨','vinil':'✂️','vinil textil':'✂️','default':'👕'
-};
-
-function tecnicaIcon(t){ if(!t) return TECNICA_ICON.default; return TECNICA_ICON[(t+'').toLowerCase()] || TECNICA_ICON.default; }
-
-function precioDesde(p){
-  if(!p) return null;
-  try{
-    if(typeof p === 'number') return p;
-    if(typeof p === 'string' && !isNaN(p)) return parseFloat(p);
-    if(Array.isArray(p) && p.length){ var min=Infinity; for(var i=0;i<p.length;i++){ var v=parseFloat(p[i].precio||p[i].price||p[i])||0; if(v>0&&v<min)min=v; } return min===Infinity?null:min; }
-    if(typeof p === 'object'){ var vals=Object.values(p).map(function(x){return parseFloat(x)||0;}).filter(function(x){return x>0;}); return vals.length?Math.min.apply(null,vals):null; }
-  }catch(e){}
-  return null;
+function tecIcono(t){
+  var m = {'Bordado':'🧵','DTF':'🖨️','Serigrafía':'🎨','Sublimación':'✨','Vinil Textil':'✂️','Uniformes':'👔'};
+  return m[t] || '👕';
 }
 
-function coloresVariantes(variantes){
-  if(!variantes || !Array.isArray(variantes)) return [];
-  var cols = [];
-  for(var i=0;i<variantes.length&&cols.length<6;i++){
-    var v = variantes[i];
-    var color = v.color_hex || v.hex || v.color || null;
-    if(color && cols.indexOf(color)===-1) cols.push(color);
-  }
-  return cols;
+function getServicesLabel(services){
+  if(!services) return [];
+  if(Array.isArray(services)) return services.slice(0,3);
+  if(typeof services === 'object') return Object.keys(services).slice(0,3);
+  return [];
 }
 
-function renderLanaCard(p){
-  var catUrl = LANA_CAT_URL;
-  var icon = tecnicaIcon(p.tecnica || p.categoria);
-  var hasImg = p.imagen_url && p.imagen_url.trim();
-  var imgHtml = hasImg
-    ? '<img class="cat-card-img" src="'+p.imagen_url+'" alt="'+escHtml(p.nombre)+'" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.querySelector(\'.cat-ph-fallback\').style.display=\'flex\'">'
-    + '<div class="cat-ph-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:3.5rem">'+icon+'</div>'
-    : '<div class="cat-ph">'+icon+'</div>';
+function loadLanaCatalog(){
+  var grid  = document.getElementById('lana-cat-grid');
+  var empty = document.getElementById('lana-cat-empty');
+  var cta   = document.getElementById('lana-cat-cta');
+  if(!grid) return;
 
-  var precio = precioDesde(p.precios_grupo || p.precio_desde || p.precio || p.precios);
-  var precioHtml = precio ? '<div class="cat-price">Desde $'+Math.round(precio)+'</div>' : '';
+  var limit = (cfg.catalogo && cfg.catalogo.limit) ? cfg.catalogo.limit : 6;
 
-  var tecLabel = p.tecnica ? p.tecnica.charAt(0).toUpperCase()+p.tecnica.slice(1) : (p.categoria || '');
-  var badgeHtml = tecLabel ? '<div class="cat-badge">'+escHtml(tecLabel)+'</div>' : '';
+  fetch(LANA_URL+'/rest/v1/productos?tenant_id=eq.'+LANA_TENANT+'&active=eq.true&order=name.asc&limit='+limit, {
+    headers:{
+      'apikey': LANA_KEY,
+      'Authorization': 'Bearer '+LANA_KEY,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(!Array.isArray(data) || data.length === 0){
+      grid.style.display = 'none';
+      if(empty) empty.style.display = 'block';
+      if(cta) cta.style.display = 'none';
+      return;
+    }
+    grid.style.display = '';
+    if(empty) empty.style.display = 'none';
+    if(cta) cta.style.display = 'block';
 
-  var variantes = p.variantes || p.colores || [];
-  var colores = coloresVariantes(variantes);
-  var dotsHtml = colores.length ? '<div class="cat-dots">'+colores.map(function(c){
-    return '<span class="cdot" style="background:'+escHtml(c)+'"></span>';
-  }).join('')+'</div>' : '';
+    grid.innerHTML = data.map(function(p){
+      var icon    = tecIcono(p.cat);
+      var hasImg  = p.main_img && p.main_img.trim();
+      var imgHtml = hasImg
+        ? '<img class="cat-card-img" src="'+escHtml(p.main_img)+'" alt="'+escHtml(p.name)+'" loading="lazy" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
+          +'<div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:3.5rem">'+icon+'</div>'
+        : '<div class="cat-ph">'+icon+'</div>';
 
-  var tecnicas = p.tecnicas_disponibles || [];
-  var tagsHtml = tecnicas.length ? '<div class="cat-tags">'+tecnicas.slice(0,3).map(function(t){
-    return '<span class="ctg">'+escHtml(t)+'</span>';
-  }).join('')+'</div>' : '';
+      var precioHtml = p.desde ? '<div class="cat-price">Desde $'+Math.round(p.desde)+'</div>' : '';
+      var badgeHtml  = p.cat   ? '<div class="cat-badge">'+escHtml(p.cat)+'</div>' : '';
+      var svcs       = getServicesLabel(p.services);
+      var tagsHtml   = svcs.length ? '<div class="cat-tags">'+svcs.map(function(s){ return '<span class="ctg">'+escHtml(s)+'</span>'; }).join('')+'</div>' : '';
+      var descHtml   = p.desc_txt ? '<div class="cat-sub">'+escHtml(p.desc_txt.substring(0,60))+(p.desc_txt.length>60?'…':'')+'</div>' : '';
 
-  var desc = p.descripcion || p.material || '';
-  var descHtml = desc ? '<div class="cat-sub">'+escHtml(desc.substring(0,60))+(desc.length>60?'…':'')+'</div>' : '';
+      return '<a href="'+LANA_CAT_URL+'" target="_blank" class="cat-card">'
+        +'<div class="cat-card-top">'+imgHtml+badgeHtml+precioHtml+'<div class="cat-overlay">Ver en catálogo →</div></div>'
+        +'<div class="cat-card-body"><div class="cat-name">'+escHtml(p.name||'Producto')+'</div>'+descHtml+tagsHtml+'</div>'
+        +'</a>';
+    }).join('');
 
-  return '<a href="'+catUrl+'" target="_blank" class="cat-card">'
-    +'<div class="cat-card-top">'+imgHtml+badgeHtml+precioHtml+'<div class="cat-overlay">Ver en catálogo →</div></div>'
-    +'<div class="cat-card-body">'+dotsHtml+'<div class="cat-name">'+escHtml(p.nombre||'Producto')+'</div>'+descHtml+tagsHtml+'</div>'
-    +'</a>';
+    grid.querySelectorAll('.cat-card').forEach(function(el){ io.observe(el); });
+  })
+  .catch(function(err){
+    console.error('LANA catalog error:', err);
+    grid.style.display = 'none';
+    if(empty) empty.style.display = 'block';
+  });
 }
 
 function escHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
