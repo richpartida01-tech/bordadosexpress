@@ -61,6 +61,26 @@ nav.shadow{box-shadow:0 4px 24px rgba(0,0,0,.12)}
 .hstat-num span{color:var(--red)}
 .hstat-label{font-size:.75rem;color:var(--g3);letter-spacing:.06em;margin-top:.2rem}
 
+/* HERO BREAKOUT GORRA */
+.hero-gorra-wrap{position:absolute;right:0;top:0;width:50%;height:100%;overflow:visible;pointer-events:none;z-index:3}
+.hero-gorra-img{position:absolute;width:clamp(340px,45vw,560px);top:-80px;left:-60px;transform:perspective(700px) rotateY(-10deg) rotateX(6deg) rotate(-10deg);filter:drop-shadow(-20px 30px 40px rgba(0,0,0,.55)) drop-shadow(0 -5px 25px rgba(212,21,21,.15));animation:gorraLand 1s cubic-bezier(.22,.61,.36,1) forwards;z-index:10}
+@keyframes gorraLand{0%{transform:perspective(700px) rotateY(-10deg) rotateX(30deg) rotate(-10deg) translateY(-160px) scale(.5);opacity:0}55%{transform:perspective(700px) rotateY(-10deg) rotateX(0deg) rotate(-10deg) translateY(14px) scale(1.06)}100%{transform:perspective(700px) rotateY(-10deg) rotateX(6deg) rotate(-10deg) translateY(0) scale(1);opacity:1}}
+.hero-gorra-glow{position:absolute;top:50%;left:50%;width:320px;height:320px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(212,21,21,.15) 0%,transparent 65%);border-radius:50%;animation:gorraGlow 2s ease-in-out infinite alternate;z-index:2}
+@keyframes gorraGlow{0%{opacity:.5;transform:translate(-50%,-50%) scale(.9)}100%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
+.hero-crack{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible}
+.hero-frag{position:absolute;background:#f2f2f2;border:1px solid #d4d4d4;z-index:8}
+.hf1{width:36px;height:20px;top:38%;left:25%;clip-path:polygon(0 0,100% 15%,85% 100%,5% 90%);animation:hfly1 .9s .15s ease-out both}
+.hf2{width:20px;height:30px;top:22%;left:46%;clip-path:polygon(15% 0,100% 8%,92% 100%,0 88%);animation:hfly2 .9s .1s ease-out both}
+.hf3{width:28px;height:16px;top:58%;left:20%;clip-path:polygon(0 20%,100% 0,95% 80%,0 100%);animation:hfly3 .9s .2s ease-out both}
+.hf4{width:14px;height:14px;top:18%;left:36%;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);animation:hfly4 .9s .05s ease-out both}
+.hf5{width:42px;height:14px;top:45%;left:8%;clip-path:polygon(0 0,100% 20%,90% 100%,0 80%);animation:hfly5 .9s .18s ease-out both}
+@keyframes hfly1{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.7;transform:translate(-55px,-65px) rotate(-25deg)}}
+@keyframes hfly2{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.6;transform:translate(35px,-85px) rotate(40deg)}}
+@keyframes hfly3{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.5;transform:translate(-30px,45px) rotate(15deg)}}
+@keyframes hfly4{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.8;transform:translate(25px,-75px) rotate(-60deg)}}
+@keyframes hfly5{0%{opacity:0;transform:translate(0,0) rotate(0)}100%{opacity:.6;transform:translate(-70px,8px) rotate(-12deg)}}
+@media(max-width:768px){.hero-gorra-wrap{display:none}}
+
 /* TAPE */
 .tape{background:var(--bk);padding:.85rem 0;overflow:hidden;white-space:nowrap}
 .tape-track{display:inline-flex;animation:marquee 20s linear infinite}
@@ -377,6 +397,28 @@ footer{background:var(--bk);padding:2.5rem 5vw;display:flex;align-items:center;j
       <a id="d-hero-cta1" href="#" class="btn-red">💬 Cotizar por WhatsApp</a>
       <a href="catalogo.html" class="btn-bk">Ver catálogo →</a>
     </div>
+  </div>
+  <!-- BREAKOUT GORRA -->
+  <div class="hero-gorra-wrap">
+    <div class="hero-gorra-glow"></div>
+    <svg class="hero-crack" viewBox="0 0 500 700" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="var(--red)" fill="none">
+        <path d="M250,350 L80,20" stroke-width="1.2" opacity=".4"/>
+        <path d="M250,350 L420,10" stroke-width="1.2" opacity=".4"/>
+        <path d="M250,350 L490,200" stroke-width="1" opacity=".3"/>
+        <path d="M250,350 L460,580" stroke-width="1" opacity=".3"/>
+        <path d="M250,350 L180,690" stroke-width="1.2" opacity=".4"/>
+        <path d="M250,350 L10,420" stroke-width="1" opacity=".3"/>
+        <path d="M155,175 L90,50 M155,175 L110,20" stroke-width=".7" opacity=".25"/>
+        <path d="M350,180 L410,40 M350,180 L455,110" stroke-width=".7" opacity=".25"/>
+      </g>
+    </svg>
+    <div class="hero-frag hf1"></div>
+    <div class="hero-frag hf2"></div>
+    <div class="hero-frag hf3"></div>
+    <div class="hero-frag hf4"></div>
+    <div class="hero-frag hf5"></div>
+    <img class="hero-gorra-img" src="img/gorra.png" alt="Gorra Bordados Express"/>
   </div>
   <div class="hero-stats reveal">
     <div class="hero-stat"><div class="hstat-num" id="d-stat1-n">15<span>+</span></div><div class="hstat-label" id="d-stat1-l">Años de experiencia</div></div>
