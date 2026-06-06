@@ -1282,31 +1282,43 @@ function guardarSeleccionLanding(){
   var checks = document.querySelectorAll('#lana-prod-list input[type=checkbox][data-pid]');
   if(!checks.length){ showToast('Sin productos que guardar'); return; }
 
-  var btn = document.querySelector('#lana-prod-list button[onclick="guardarSeleccionLanding()"]');
+  var slug = currentBESlug();
+  var btn = document.querySelector('#lana-prod-list button');
   if(btn){ btn.textContent = '⏳ Guardando...'; btn.disabled = true; }
 
   var rows = [];
   var orden = 0;
   checks.forEach(function(ch){
-    rows.push({ tenant_slug: currentBESlug(), producto_id: parseInt(ch.dataset.pid), activo: ch.checked, orden: orden++ });
+    rows.push({ tenant_slug: slug, producto_id: parseInt(ch.dataset.pid), activo: ch.checked, orden: orden++ });
   });
 
-  // Upsert — insert o actualiza por tenant_slug+producto_id
-  fetch(BE_URL+'/rest/v1/landing_catalogo', {
-    method: 'POST',
-    headers: {
-      'apikey': BE_KEY,
-      'Authorization': 'Bearer '+BE_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': 'resolution=merge-duplicates,return=minimal'
-    },
-    body: JSON.stringify(rows)
-  }).then(function(r){
-    if(!r.ok) throw new Error('Status '+r.status);
+  var h = {
+    'apikey': BE_KEY,
+    'Authorization': 'Bearer '+BE_KEY,
+    'Content-Type': 'application/json'
+  };
+
+  // Paso 1: DELETE registros existentes de este slug
+  fetch(BE_URL+'/rest/v1/landing_catalogo?tenant_slug=eq.'+encodeURIComponent(slug), {
+    method: 'DELETE',
+    headers: h
+  })
+  .then(function(r){
+    if(!r.ok && r.status !== 404) throw new Error('DELETE falló: '+r.status);
+    // Paso 2: INSERT todos los registros nuevos
+    return fetch(BE_URL+'/rest/v1/landing_catalogo', {
+      method: 'POST',
+      headers: Object.assign({}, h, { 'Prefer': 'return=minimal' }),
+      body: JSON.stringify(rows)
+    });
+  })
+  .then(function(r){
+    if(!r.ok) throw new Error('INSERT falló: '+r.status);
     showToast('✅ Selección guardada');
     loadLanaCatalog();
     if(btn){ btn.textContent = '💾 Guardar selección'; btn.disabled = false; }
-  }).catch(function(e){
+  })
+  .catch(function(e){
     showToast('❌ Error: '+e.message);
     console.error(e);
     if(btn){ btn.textContent = '💾 Guardar selección'; btn.disabled = false; }
