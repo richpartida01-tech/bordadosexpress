@@ -1119,6 +1119,8 @@ function saveConfig(){
     if(el_st) cfg.catalogo.stickyText = el_st.value;
     applyCatalogo();
   }
+  else if(tab==='lana'){
+    cfg.tenant.lanaUrl = v('f-lana-url');
     cfg.tenant.id = v('f-tenant-id');
     const ac=document.getElementById('f-lana-active');
     if(ac) cfg.tenant.lanaActive=ac.checked;
